@@ -1,0 +1,45 @@
+h3, h5, h6 {
+    color: #5DDADB;
+}
+
+p {
+    color: white;
+}
+
+.jumbo {
+    font-size: 200px;
+}
+
+.black-bg {
+    background-color: #000000;
+}
+
+.background-image {
+    background-image: url('../images/vials2.jpg');
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: hue-rotate();
+}
+
+.image-size-p{
+    width: 200%;
+    object-fit: contain;
+}
+
+.h2-format {
+    font-size: 75px;
+    color: #5DDADB;
+}
+
+.sub-header {
+    font-size: 25px;
+    color:white;
+    font-weight: bold;
+    text-shadow: 3px 2px black;
+}
+
+.shadow {
+    text-shadow: 3px 3px black;
+}

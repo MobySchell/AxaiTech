@@ -1,0 +1,29 @@
+
+.title {
+    font-family: 'Coda Caption', sans-serif;
+    font-size: 50px;
+    font-stretch: extra-expanded;
+    outline: black;
+    outline-offset: 2px;
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.img-responsive {
+    width: 500px; 
+    height: 600px; 
+
+  }
+
+  .line {
+      border: 4px solid;
+      border-color: slategrey;
+  }
+
+  .size {
+      width: 600px;
+  }

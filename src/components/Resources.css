@@ -1,0 +1,19 @@
+h1, h3, h5, h6 {
+    color: #5DDADB;
+}
+
+.pdf-change {
+    color: red;
+    cursor: pointer;
+    font-size: 80px;
+}
+
+.black-bg {
+    background-color: #000000;
+}
+
+.font-change {
+    font-family: 'Staatliches', cursive;
+    font-weight: 100;
+
+}

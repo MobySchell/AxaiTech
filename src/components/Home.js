@@ -1,81 +1,38 @@
-import "bootstrap/dist/css/bootstrap.css";
-import React, { Component } from "react";
-
-import firebase from "../Firebase/firebase";
-import Book from "../models/Book";
-
-import BookInput from "./BookInput";
-import BookTable from "./BookTable";
+import React, { Component } from 'react'
+import report from '../images/report.jpg'
+import './Home.css'
 
 export default class Home extends Component {
-    constructor(props) {
-        super(props);
-
-        this.db = firebase.firestore();
-
-        this.state = { books: [] };
-    }
-
-    componentDidMount() {
-        this.fetchData();
-    }
-
-    async fetchData() {
-        try {
-            const snapshot = await this.db.collection("books").get();
-            const books = snapshot.docs.map((doc) => Book.fromFB(doc));
-
-            this.setState({ books: books });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    async onBookSubmitted(book) {
-        try {
-            const dbAdd = this.db.collection("books").doc();
-            await dbAdd.set({
-                title: book.title,
-                author: book.author,
-                isbn: book.isbn,
-            });
-
-            book.id = dbAdd.id;
-            this.state.books.push(book);
-            this.setState({ books: this.state.books });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    async onBookRemoved(bookId) {
-        try {
-            await this.db.collection("books").doc(bookId).delete();
-            const updatedBookArr = this.state.books.filter(
-                (book) => book.id !== bookId
-            );
-            this.setState({ books: updatedBookArr });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
     render() {
         return (
-            <>
-                <div className="container">
-                    <div className="container">
-                        <h1 className="m-3 fs-1">Add Book:</h1>
-                        <BookInput
-                            createBook={(book) => this.onBookSubmitted(book)}
-                        />
-                        <BookTable
-                            books={this.state.books}
-                            bookRemoved={(bookId) => this.onBookRemoved(bookId)}
-                        />
+            <div className="text-white d-flex text-center">
+                <div className="p-5">
+                    <h1 className="title">Better Data.</h1>
+                    <h1 className="title">Better Treatment.</h1>
+                <div className="row">
+                    <div className="col-3"></div>
+                    <div className="p-2 col-6">
+                        <p>
+                        Liquid Biopsy Chemotherapy Drug Resistance screening offers the 
+                        primary care physician actionable insight into each individual 
+                        undergoing treatment.
+                        </p>
+                        <p>
+                        With up to 90% of cancer mortality linked to drug resistance, 
+                        better data means better treatment from the start.
+                        </p>
                     </div>
+                    <figure className="figure pt-4">
+                        <img className="img-responsive line" src={report} alt=""></img>
+                        <figcaption className="figure-caption text-white">*The report above is a simplified version of the 
+                        <br></br>Axaitech clinical report for illustrative purposes only.</figcaption>
+                    </figure>
+                    
+                    <div className="p-5"></div>
+
                 </div>
-            </>
-        );
+                </div>
+                </div>
+        )
     }
 }
