@@ -3,6 +3,7 @@ import 'firebase/auth'
 import 'firebase/firestore'
 
 class Firebase{
+
     static singleton;
     static instance(){
         if (!Firebase.singleton) {
@@ -10,6 +11,7 @@ class Firebase{
         }
         return Firebase.singleton;
     }
+
     constructor(){
         this.firebase = firebase.initializeApp({
             apiKey: "AIzaSyAyZL5YtFGJySD_Q2FuLJUMyK32EE39NII",
