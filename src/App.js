@@ -11,7 +11,7 @@ import Contact from './components/Contact';
 import Home from './components/Home';
 import DoctorPortal from './components/DoctorPortal';
 import PatientPortal from './components/PatientPortal';
-import background from './images/option7.jpg';
+// import background from './images/option7.jpg';
 import Firebase from './firebase/firebase';
 import Login from './components/login/Login';
 import register from './components/login/register';
@@ -59,7 +59,9 @@ class App extends Component {
           <div>Loading</div>
         ) : (
           <BrowserRouter>
-            <div style={{ backgroundImage: `url(${background})` }}>
+            <div className="backgroundImage"
+              // style={{ backgroundImage: `url(${background}`}}
+              >
               <Nav user={user} />
               <Route path="/product" exact component={Product} />
               <Route path="/" exact component={Home} />
@@ -92,3 +94,23 @@ class App extends Component {
 }
 
 export default App;
+
+
+/*
+
+import {View, ImageBackground, Text} from 'react-native';
+
+const styles = StyleSheet.create({
+
+});
+...
+<ImageBackground
+  style={styles.image}
+  source={{uri: props.picture_url}}
+>
+   <View style={styles.textbox}>
+      <Text style={styles.title} >CHILD OF IMAGE_BACKGROUND</Text >
+    </View>
+ </ImageBackground >
+
+*/
