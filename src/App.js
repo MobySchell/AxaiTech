@@ -69,6 +69,7 @@ class App extends Component {
               <Route path="/resources" exact component={Resources} />
               <PropsRoute path="/login" exact component={Login} user={user} />
               <PropsRoute path="/register" exact component={register} user={user} />
+
               <GuardedRoute
                 path="/doctor-portal"
                 exact
