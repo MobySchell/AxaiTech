@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import firebase from "../../firebase/firebase";
+import firebase from "firebase";
 export default class DoctorLogin extends Component {
     constructor(props) {
         super(props);
 
-        this.auth = firebase.auth()
+        this.auth = firebase.auth();
 
         this.state = {
             email: "",
             password: "",
+            error: "",
         };
     }
 
@@ -25,7 +26,7 @@ export default class DoctorLogin extends Component {
     }
 
     render() {
-        const { email, password } = this.state;
+        const { email, password, error } = this.state;
         return (
             <div className="container">
                 <h1>Doctor Login</h1>
@@ -56,6 +57,11 @@ export default class DoctorLogin extends Component {
                     <button className="btn btn-primary px-5 body" type="submit">
                         Login
                     </button>
+                    {error ? (
+                        <div className="alert alert-danger mt-4">{error}</div>
+                    ) : (
+                        <div></div>
+                    )}
                 </form>
             </div>
         );
