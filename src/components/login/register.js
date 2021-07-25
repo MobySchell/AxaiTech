@@ -8,8 +8,6 @@ import React, { Component } from 'react';
 import './styles.css';
 import Firebase from '../../firebase/firebase';
 import ShowIf from '../ShowIf';
-const auth = Firebase.instance().auth;
-
 
 export default class register extends Component {
 
@@ -20,8 +18,8 @@ export default class register extends Component {
       this.props.history.push('/');
     }
 
-    this.auth = Firebase.instance().auth;
-    this.db = Firebase.instance().db;
+    this.auth = Firebase.auth();
+    this.db = Firebase.firestore();
 
     this.state = {
       firstName: '',
@@ -29,7 +27,8 @@ export default class register extends Component {
       email: '',
       password: '',
       // role: 'patient',
-      role: 'doctor',
+      role: '',
+      status: '',
       counter: 1,
       hpcsa: '',
       practiceNum: '',
@@ -180,20 +179,21 @@ is turned, certain fields of text are shown. */
   }
 
   
-  
 
   async register(e) {
     e.preventDefault();
-
+    
     try {
       const {email, password} = this.state;
-      await auth.createUserWithEmailAndPassword(email, password);
+      await this.auth.createUserWithEmailAndPassword(email, password);
 
       await this.db.collection('user-roles').doc().set({
           userId: this.auth.currentUser.uid,
           role: this.state.role,
       });
 
+      console.log(e);
+  
       if (this.state.role === 'patient') {
         await this.db.collection('patients').doc().set({
           userId: this.auth.currentUser.uid,
@@ -211,13 +211,14 @@ is turned, certain fields of text are shown. */
           surname: this.state.surname,
           hpcsa: this.state.hpcsa,
           practiceNum: this.state.practiceNum,
+          status: 'pending'
         });
       }
 
       this.props.history.push('/doctor-portal');
+      // this.props.history.push('/');
     } catch(err) {
       this.setState({ error: err.message });
-      
     }
   }
 

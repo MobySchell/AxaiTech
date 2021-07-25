@@ -17,9 +17,7 @@ import Login from './components/login/Login';
 import register from './components/login/register';
 import PropsRoute from './components/routing/PropsRoute';
 import GuardedRoute from './components/routing/GuardedRoute';
-
-const auth = Firebase.instance().auth;
-const db = Firebase.instance().db;
+import StatusPage from './components/StatusPage';
 
 class App extends Component {
   constructor(props) {
@@ -29,11 +27,15 @@ class App extends Component {
       user: null,
       loading: true,
       role: '',
+      status: ''
     };
-  }
 
+    this.db = Firebase.firestore();
+    this.auth = Firebase.auth();
+}
+  
   componentDidMount() {
-    auth.onAuthStateChanged((user) => {
+    this.auth.onAuthStateChanged((user) => {
       this.setState({ user: user, loading: false });
       if (user !== null) {
         this.getUserRole(user.uid);
@@ -42,17 +44,20 @@ class App extends Component {
   }
 
   async getUserRole(userUid) {
-    const snap = await db.collection('user-roles').where('userId', '==', userUid).get();
+    const snap = await this.db.collection('doctors').where('userId', '==', userUid).get();
     snap.forEach((doc) => {
-      const role = doc.data().role;
+      // const role = doc.data().role;
+      const role = "doctor";
+      const status = doc.data().status;
       this.setState({
         role: role,
+        status: status
       });
     });
   }
 
   render() {
-    const { user, role, loading } = this.state;
+    const { user, role, status, loading } = this.state;
     return (
       <div>
         {loading ? (
@@ -71,11 +76,20 @@ class App extends Component {
               <PropsRoute path="/register" exact component={register} user={user} />
 
               <GuardedRoute
+                path="/status-page"
+                exact
+                component={StatusPage}
+                user={user}
+                role={role}
+                status={status}
+              />
+              <GuardedRoute
                 path="/doctor-portal"
                 exact
                 component={DoctorPortal}
                 user={user}
                 role={role}
+                status={status}
               />
               <GuardedRoute
                 path="/patient-portal"
@@ -95,23 +109,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-/*
-
-import {View, ImageBackground, Text} from 'react-native';
-
-const styles = StyleSheet.create({
-
-});
-...
-<ImageBackground
-  style={styles.image}
-  source={{uri: props.picture_url}}
->
-   <View style={styles.textbox}>
-      <Text style={styles.title} >CHILD OF IMAGE_BACKGROUND</Text >
-    </View>
- </ImageBackground >
-
-*/
