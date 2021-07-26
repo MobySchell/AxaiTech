@@ -8,8 +8,6 @@ import React, { Component } from 'react';
 import './styles.css';
 import Firebase from '../../firebase/firebase';
 import ShowIf from '../ShowIf';
-const auth = Firebase.instance().auth;
-
 
 export default class register extends Component {
 
@@ -20,15 +18,17 @@ export default class register extends Component {
       this.props.history.push('/');
     }
 
-    this.auth = Firebase.instance().auth;
-    this.db = Firebase.instance().db;
+    this.auth = Firebase.auth();
+    this.db = Firebase.firestore();
 
     this.state = {
       firstName: '',
       surname: '',
       email: '',
       password: '',
-      role: 'patient',
+      // role: 'patient',
+      role: '',
+      status: '',
       counter: 1,
       hpcsa: '',
       practiceNum: '',
@@ -90,6 +90,7 @@ export default class register extends Component {
     });
   }
 
+/*
   toggleSwitch() {
 
     let count = this.state.counter;
@@ -106,6 +107,7 @@ export default class register extends Component {
       });
     }
   }
+*/
 
 /*render functions below are coded to specifically show certain fields of 
 text for either a doctor or for the patient and depending on which way the switch 
@@ -177,20 +179,21 @@ is turned, certain fields of text are shown. */
   }
 
   
-  
 
   async register(e) {
     e.preventDefault();
-
+    
     try {
       const {email, password} = this.state;
-      await auth.createUserWithEmailAndPassword(email, password);
+      await this.auth.createUserWithEmailAndPassword(email, password);
 
       await this.db.collection('user-roles').doc().set({
           userId: this.auth.currentUser.uid,
           role: this.state.role,
       });
 
+      console.log(e);
+  
       if (this.state.role === 'patient') {
         await this.db.collection('patients').doc().set({
           userId: this.auth.currentUser.uid,
@@ -208,13 +211,14 @@ is turned, certain fields of text are shown. */
           surname: this.state.surname,
           hpcsa: this.state.hpcsa,
           practiceNum: this.state.practiceNum,
+          status: 'pending'
         });
       }
 
       this.props.history.push('/doctor-portal');
+      // this.props.history.push('/');
     } catch(err) {
       this.setState({ error: err.message });
-      
     }
   }
 
@@ -225,7 +229,19 @@ is turned, certain fields of text are shown. */
         <div className="p-5"></div>
         <div className="card card-body text-center">
           <form onSubmit={(e) => this.register(e)}>
+            
             <h1 className="h3 mt-3 text-center">Please Register</h1>
+
+            <div className='row'>
+              <p className='black col-7'>Click Here if a Physician</p>
+              <div className="form-check form-switch text-center col-5">
+                <input // onClick={()=> this.toggleSwitch()} 
+                className="form-check-input" 
+                type="checkbox" 
+                id="flexSwitchCheckDefault"/>
+              </div>
+            </div>  
+
             <div className="p-3 body">
               <input
                 value={this.state.firstName}
@@ -241,7 +257,7 @@ is turned, certain fields of text are shown. */
                 onChange={(e) => this.onSurnameChanged(e)}
                 type="text"
                 className="form-control"
-                placeholder="surname"
+                placeholder="Surname"
               />
             </div>
             <div className="p-3 body">
@@ -265,15 +281,6 @@ is turned, certain fields of text are shown. */
             {this.renderAge()}
             {this.renderGender()}
             {this.renderDiagnosis()}
-            <div className='row'>
-              <p className='black col-7'>Click Here if a Physician</p>
-              <div className="form-check form-switch text-center col-5">
-                <input onClick={()=> this.toggleSwitch()} 
-                className="form-check-input" 
-                type="checkbox" 
-                id="flexSwitchCheckDefault"/>
-              </div>
-            </div>
             {this.renderHPCSA()}
             {this.renderPracticeNum()}
 

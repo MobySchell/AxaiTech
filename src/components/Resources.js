@@ -9,7 +9,7 @@ export default class Resources extends Component {
                 <div className="p-5"></div>
                 
                 <div className="p-3">
-                    <h1 className="">Information and Sample Report</h1>
+                    <h1 className="">Information & Sample Report</h1>
                 </div>
 
                 <div className="text-white">
