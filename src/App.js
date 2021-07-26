@@ -67,13 +67,22 @@ class App extends Component {
               <Route path="/resources" exact component={Resources} />
               <PropsRoute path="/login" exact component={Login} user={user} />
               <PropsRoute path="/register" exact component={register} user={user} />
-              <GuardedRoute
+              
+              <Route
                 path="/doctor-portal"
                 exact
                 component={DoctorPortal}
                 user={user}
                 role={role}
-              />
+              /> 
+              
+              {/* <GuardedRoute
+                path="/doctor-portal"
+                exact
+                component={DoctorPortal}
+                user={user}
+                role={role}
+              /> */}
               <GuardedRoute
                 path="/patient-portal"
                 exact
