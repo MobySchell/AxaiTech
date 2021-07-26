@@ -19,6 +19,8 @@ import PropsRoute from "./components/routing/PropsRoute";
 import GuardedRoute from "./components/routing/GuardedRoute";
 import StatusPage from "./components/StatusPage";
 import DoctorLogin from "./components/login/DoctorLogin";
+import DifferentiatorLogin from "./components/login/DifferentiatorLogin";
+import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
 
 class App extends Component {
     constructor(props) {
@@ -80,6 +82,16 @@ class App extends Component {
                                 path="/resources"
                                 exact
                                 component={Resources}
+                            />
+                            <Route
+                                path="/differentiatorLogin"
+                                exact
+                                component={DifferentiatorLogin}
+                            />
+                            <Route
+                                path="/differentiatorRegister"
+                                exact
+                                component={DifferentiatorRegister}
                             />
                             <Route
                                 path="/doctorlogin"

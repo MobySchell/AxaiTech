@@ -29,7 +29,7 @@ export default class Nav extends Component {
   renderLogin(){
     if(this.props.user){return;}
     return <button className="btn btn-outline-light me-3" type="submit">
-                <Link className="p-2 nav-link" to="/login" style={{ textDecoration: 'none' }}>
+                <Link className="p-2 nav-link" to="/DifferentiatorLogin" style={{ textDecoration: 'none' }}>
                   Login{' '}
                 </Link>
               </button>
@@ -38,7 +38,7 @@ export default class Nav extends Component {
   renderRegister(){
     if(this.props.user){return;}
     return <button className="btn btn-outline-light ml-3" type="submit">
-                <Link className="p-2 nav-link" to="/register" style={{ textDecoration: 'none' }}>
+                <Link className="p-2 nav-link" to="/DifferentiatorRegister" style={{ textDecoration: 'none' }}>
                   Register{' '}
                 </Link>
               </button>
