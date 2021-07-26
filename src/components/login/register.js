@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import './styles.css';
 import Firebase from '../../firebase/firebase';
 import ShowIf from '../ShowIf';
+
 const auth = Firebase.instance().auth;
 
 
@@ -16,9 +17,13 @@ export default class register extends Component {
   constructor(props) {
     super(props);
 
+   
+
     if (this.props.user) {
       this.props.history.push('/');
     }
+
+
 
     this.auth = Firebase.instance().auth;
     this.db = Firebase.instance().db;
@@ -36,6 +41,7 @@ export default class register extends Component {
       gender: '',
       diagnosis: '',
       error: '',
+      
     };
   }
   onNameChanged(e) {
@@ -88,6 +94,8 @@ export default class register extends Component {
     this.setState({
       diagnosis: e.target.value
     });
+
+   
   }
 
   toggleSwitch() {
@@ -221,6 +229,7 @@ is turned, certain fields of text are shown. */
   render() {
     const {error} = this.state;
     return (
+      
       <div className="container col-7 mt-2">
         <div className="p-5"></div>
         <div className="card card-body text-center">
@@ -282,6 +291,8 @@ is turned, certain fields of text are shown. */
                   {error}
               </div>
             </ShowIf>
+
+            
             
             <div className="text-center mt-4 body">
               <button className="btn btn-primary px-5" type="submit">
@@ -289,10 +300,45 @@ is turned, certain fields of text are shown. */
               </button>
             </div>
           </form>
-        </div>
 
+
+          
+         <div>
+            <div className="container col-7 mt-2"><div class="p-5"></div>
+            <div className="card card-body text-center">
+            <form><h2 class="h3 mt-3 text-center">Patient Register</h2>
+            
+      <div className="mb-3">
+  <label for="formGroupExampleInput" className="form-label"></label>
+  <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Name"></input>
+</div>
+<div class="mb-3">
+  <label for="formGroupExampleInput2" class="form-label"></label>
+  <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Email"></input>
+</div>
+
+<div className="text-center mt-4 body">
+              <button className="btn btn-primary px-5" type="submit">
+                Register
+              </button>
+            </div>
+</form>
+</div>
+         </div>  
+            </div>
+        </div>
+      
         <div className="p-5"></div>
+
+
+        
       </div>
-    );
-  }
+
+ ) }
 }
+
+
+  
+    
+      
+    
