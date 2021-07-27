@@ -5,7 +5,7 @@ import ximage from '../images/Axaitech.png';
 import { Link } from 'react-router-dom';
 import './Nav.css';
 import Firebase from '../firebase/firebase';
-const auth = Firebase.instance().auth;
+
 
 export default class Nav extends Component {
   constructor(props) {
@@ -13,11 +13,14 @@ export default class Nav extends Component {
     this.state = {
       user: props.user
     };
+    
+    this.auth = Firebase.auth();
   }
+
 
   async logout() {
     try {
-      await auth.signOut();
+      await this.auth.signOut();
     } catch (err) {
       console.log(err);
     }

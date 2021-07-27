@@ -7,20 +7,29 @@ import React, { Component } from 'react'
 import './styles.css';
 import Firebase from '../../firebase/firebase';
 import ShowIf from '../ShowIf';
-const auth = Firebase.instance().auth;
+
+// const auth = Firebase.instance().auth;
 
 export default class Login extends Component {
     constructor(props){
         super(props);
 
+        /*
         if (this.props.user){
-            this.props.history.push('/');
-        }
+            this.props.history.push('/doctor-portal');
+        }   
+        */ 
+
+        this.auth = Firebase.auth();
+        this.db = Firebase.firestore();
               
         this.state= {
+            user: '',
             email: '',
             password: '',
             error: '',
+            role: '',
+            status: ''
         }
     }
             
@@ -35,20 +44,52 @@ export default class Login extends Component {
             password: e.target.value
         });
     }
-    
-            
+
+    componentDidMount() {
+        this.auth.onAuthStateChanged((user) => {
+          this.setState({ user: user, loading: false });
+          if (user !== null) {
+            this.getRoleStatus(user.uid);
+          }
+        });
+    }
+
+    async getRoleStatus(userUid) {
+        const snap = await this.db.collection('doctors').where('userId', '==', userUid).get();
+        snap.forEach((doc) => {
+          const role = doc.data().role;
+          const status = doc.data().status;
+          this.setState({
+            role: role,
+            status: status
+          });
+        });
+      }
+      
     async login(e){
         e.preventDefault();
             
         try{
             const {email, password } = this.state;
-            await auth.signInWithEmailAndPassword(email,password);
-            this.props.history.push('/doctor-portal');
+            await this.auth.signInWithEmailAndPassword(email,password);
+            await this.getRoleStatus(this.props.user.uid);
+
+            if (this.props.user) {
+                if (this.props.user.role === 'doctor') {
+                    if (this.props.user.status === 'approved') {
+                        this.props.history.push('/doctor-portal');
+                    } else {
+                        this.props.history.push('/status-page');
+                    }
+                } else {
+                    this.props.history.push('/patient-portal');
+                }
+            } 
+            
 
         }catch(err){
             this.setState({ error: err.message });
-        }
-            
+        }    
     }
 
     render() {
