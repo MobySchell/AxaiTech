@@ -54,11 +54,13 @@ export default class PatientRegister extends Component {
   render() {
     
     return (
-      <div>
+        <div className="container col-7 mt-2">
+        <div className="p-5"></div>
+        <div className="card card-body text-center">
          <form onSubmit={(e) => this.PatientRegister(e)}>
         <h1 className="h3 mt-3 text-center">Patient Registration</h1>
 
-        <div className="mb-3">
+        <div className="p-3 body">
           <label  className="form-label"></label>
           <input
              value={this.state.Name}
@@ -70,7 +72,7 @@ export default class PatientRegister extends Component {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="p-3 body">
           <label  className="form-label"></label>
           <input
              value={this.state.Email}
@@ -88,6 +90,7 @@ export default class PatientRegister extends Component {
           </button>
         </div>
         </form> 
+      </div>
       </div>
     );
   }
