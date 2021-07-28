@@ -31,6 +31,7 @@ export default class DoctorPortal extends Component {
                 <th>Patient name</th>
                 <th>Date exmained</th>
                 <th>Test results</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -38,7 +39,10 @@ export default class DoctorPortal extends Component {
                 <th>1</th>
                 <td>Mark Shoeman</td>
                 <td>25/06/2021</td>
-                <td>pending</td>
+                <td>Ready</td>
+                <td>
+                  Download
+                </td>
               </tr>
             </tbody>
           </table>
