@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Firebase from "../firebase/firebase";
 
 
+
 export default class PatientRegister extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +13,7 @@ export default class PatientRegister extends Component {
     this.state = {
       Name: "",
       Email: "",
-      role: "doctor",
+      role: "",
       error:"",
     };
   }
@@ -45,9 +46,8 @@ export default class PatientRegister extends Component {
     } catch (err) {}
   }
 
+ 
 
-
-  
 
 
 
