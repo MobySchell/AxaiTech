@@ -1,8 +1,12 @@
 import React, { Component } from "react";
+import firebase from "../../firebase/firebase";
 
 export default class DoctorRegister extends Component {
     constructor(props) {
         super(props);
+
+        this.auth = firebase.auth()
+        this.db = firebase.firestore()
 
         this.state = {
             firstName: "",
@@ -13,51 +17,42 @@ export default class DoctorRegister extends Component {
             gender: "",
             diagnosis: "",
             hpcsa: "",
-            practiceNum: ""
+            practiceNum: "",
+            role: "doctor"
         };
     }
 
     async register(e) {
         e.preventDefault();
-        
+
         try {
-          const {email, password} = this.state;
-          await this.auth.createUserWithEmailAndPassword(email, password);
-    
-          await this.db.collection('user-roles').doc().set({
-              userId: this.auth.currentUser.uid,
-              role: this.state.role,
-          });
-    
-          console.log(e);
-      
-          if (this.state.role === 'patient') {
-            await this.db.collection('patients').doc().set({
-              userId: this.auth.currentUser.uid,
-              age: this.state.age,
-              diagnosis: this.state.diagnosis,
-              firstName: this.state.firstName,
-              surname: this.state.surname,
+            const { email, password } = this.state;
+            await this.auth.createUserWithEmailAndPassword(email, password);
+
+            await this.db.collection("user-roles").doc().set({
+                userId: this.auth.currentUser.uid,
+                role: this.state.role,
             });
-          }
-    
-          if (this.state.role === 'doctor') {
-            await this.db.collection('doctors').doc().set({
-              userId: this.auth.currentUser.uid,
-              firstName: this.state.firstName,
-              surname: this.state.surname,
-              hpcsa: this.state.hpcsa,
-              practiceNum: this.state.practiceNum,
-              status: 'pending'
-            });
-          }
-    
-          this.props.history.push('/doctor-portal');
-          // this.props.history.push('/');
-        } catch(err) {
-          this.setState({ error: err.message });
+
+            console.log(e);
+
+            if (this.state.role === "doctor") {
+                await this.db.collection("doctors").doc().set({
+                    userId: this.auth.currentUser.uid,
+                    firstName: this.state.firstName,
+                    surname: this.state.surname,
+                    hpcsa: this.state.hpcsa,
+                    practiceNum: this.state.practiceNum,
+                    status: "pending", // change pending
+                });
+            }
+
+            this.props.history.push("/doctor-portal");
+            // this.props.history.push('/');
+        } catch (err) {
+            this.setState({ error: err.message });
         }
-      }
+    }
 
     render() {
         return (
@@ -182,6 +177,14 @@ export default class DoctorRegister extends Component {
                                 className="form-control"
                                 placeholder="Practice Number"
                             />
+                        </div>
+                        <div className="text-center mt-4 body">
+                            <button
+                                className="btn btn-primary px-5"
+                                type="submit"
+                            >
+                                Register
+                            </button>
                         </div>
                     </form>
                 </div>
