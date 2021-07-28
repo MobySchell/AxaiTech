@@ -55,36 +55,68 @@ export default class Login extends Component {
     }
 
     async getRoleStatus(userUid) {
+        const snap1 = await this.db.collection('user-roles').where('userId', '==', userUid).get();
+        snap1.forEach((doc) => {
+          const role = doc.data().role;
+          this.setState({ role: role });
+        });
+        const {role} = this.state;
+        if (role === "doctor") {
+          const snap2 = await this.db.collection('doctors').where('userId', '==', userUid).get();
+          snap2.forEach((doc) => {
+            const status = doc.data().status;
+            this.setState({ status: status });
+          });
+        }
+        /*
         const snap = await this.db.collection('doctors').where('userId', '==', userUid).get();
         snap.forEach((doc) => {
-          const role = doc.data().role;
+          // const role = doc.data().role;
+          const role = "doctor";
           const status = doc.data().status;
           this.setState({
             role: role,
             status: status
           });
         });
+        */
       }
       
     async login(e){
         e.preventDefault();
             
         try{
+
             const {email, password } = this.state;
             await this.auth.signInWithEmailAndPassword(email,password);
             await this.getRoleStatus(this.props.user.uid);
 
-            if (this.props.user) {
-                if (this.props.user.role === 'doctor') {
-                    if (this.props.user.status === 'approved') {
-                        this.props.history.push('/doctor-portal');
+            const {user, role, status } = this.state;
+
+            setTimeout(() => 
+            {                 
+                if (user) {
+                    if (role === 'doctor') {
+                        if (status === 'approved') {
+                            console.log("role: " + role)
+                            console.log("status: " + status)
+                            console.log("doctor is approved")
+                            this.props.history.push('/doctor-portal');
+                        } else {
+                            console.log("role: " + role)
+                            console.log("status: " + status)
+                            console.log("doctor is not approved")
+                            this.props.history.push('/status-page');
+                        }
                     } else {
-                        this.props.history.push('/status-page');
+                        console.log("role: " + role)
+                        console.log("status: " + status)
+                        console.log(this.state)
+                        console.log("not a doctor")
+                        this.props.history.push('/patient-portal');
                     }
-                } else {
-                    this.props.history.push('/patient-portal');
-                }
-            } 
+                }      
+            }, 5000);
             
 
         }catch(err){

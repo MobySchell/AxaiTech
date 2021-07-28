@@ -27,13 +27,37 @@ class App extends Component {
     this.state = {
       user: null,
       loading: true,
-      role: '',
-      status: ''
+      // role: '',
+      // status: ''
+      role: localStorage.getItem('role'),
+      status: localStorage.getItem('status')
     };
 
     this.db = Firebase.firestore();
     this.auth = Firebase.auth();
-}
+
+
+  }
+
+
+  /*
+  this.setState(
+    {selection: this.state.selection.concat(shop_item) },
+    () => {
+      this.saveToLocal();
+    }
+    );
+
+  saveToLocal() {
+       const local = this.state.favourites;
+       this.localStorage.setItem(‘saveFavorites’, JSON.stringify(local));
+   }
+
+  this.setState(
+    { selection: this.state.selection.concat(shop_item) },
+    this.saveToLocal
+  );
+  */
   
   componentDidMount() {
     this.auth.onAuthStateChanged((user) => {
@@ -45,6 +69,23 @@ class App extends Component {
   }
 
   async getUserRole(userUid) {
+    const snap1 = await this.db.collection('user-roles').where('userId', '==', userUid).get();
+    snap1.forEach((doc) => {
+      const role = doc.data().role;
+      this.setState({ role: role });
+      localStorage.setItem('role', role);
+    });
+    const {role} = this.state;
+    if (role === "doctor") {
+      const snap2 = await this.db.collection('doctors').where('userId', '==', userUid).get();
+      snap2.forEach((doc) => {
+      const status = doc.data().status;
+        this.setState({ status: status });
+        localStorage.setItem('status', status);
+      });
+    }
+  }
+    /*
     const snap = await this.db.collection('doctors').where('userId', '==', userUid).get();
     snap.forEach((doc) => {
       // const role = doc.data().role;
@@ -55,10 +96,13 @@ class App extends Component {
         status: status
       });
     });
-  }
+    */
 
   render() {
-    const { user, role, status, loading } = this.state;
+    // const { user, role, status, loading } = this.state;
+    
+    const { user, loading, role, status } = this.state;
+  
     return (
       <div>
         {loading ? (
@@ -78,9 +122,9 @@ class App extends Component {
               <Route path="/patient" exact component={PatientRegister} />
 
               <GuardedRoute
-                path="/status-page"
+                path="/patient-portal"
                 exact
-                component={StatusPage}
+                component={PatientPortal}
                 user={user}
                 role={role}
                 status={status}
@@ -103,11 +147,12 @@ class App extends Component {
 
 
               <GuardedRoute
-                path="/patient-portal"
+                path="/status-page"
                 exact
-                component={PatientPortal}
+                component={StatusPage}
                 user={user}
                 role={role}
+                status={status}
               />
               
 
