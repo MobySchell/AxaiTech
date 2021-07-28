@@ -18,7 +18,7 @@ import register from './components/login/register';
 import PropsRoute from './components/routing/PropsRoute';
 import GuardedRoute from './components/routing/GuardedRoute';
 import StatusPage from './components/StatusPage';
-import patientRegister from './components/patientRegister';
+import PatientRegister from './components/PatientRegister';
 
 class App extends Component {
   constructor(props) {
@@ -75,6 +75,7 @@ class App extends Component {
               <Route path="/resources" exact component={Resources} />
               <PropsRoute path="/login" exact component={Login} user={user} />
               <PropsRoute path="/register" exact component={register} user={user} />
+              <Route path="/patient" exact component={PatientRegister} />
 
               <GuardedRoute
                 path="/status-page"
@@ -86,21 +87,9 @@ class App extends Component {
               />
 
 
-                <Route
-                path="/patient-register"
-                exact
-                component={patientRegister}
-                user={user}
-                role={role}
-                status={status}
-              />
+               
 
-
-
-
-
-
-                
+               
 
               <GuardedRoute
                 path="/doctor-portal"

@@ -4,41 +4,37 @@ this code is for the register page on the website and handles the register of al
 we have made a toggle switch to go between the different roles of users and certain functions
 below reflect certain information needed from either a doctor or a patient
  */
-import React, { Component } from 'react';
-import './styles.css';
-import Firebase from '../../firebase/firebase';
-import ShowIf from '../ShowIf';
+import React, { Component } from "react";
+import "./styles.css";
+import Firebase from "../../firebase/firebase";
+import ShowIf from "../ShowIf";
 
 export default class register extends Component {
-
   constructor(props) {
     super(props);
 
-   
-
     if (this.props.user) {
-      this.props.history.push('/');
+      this.props.history.push("/");
     }
 
     this.auth = Firebase.auth();
     this.db = Firebase.firestore();
 
     this.state = {
-      firstName: '',
-      surname: '',
-      email: '',
-      password: '',
+      firstName: "",
+      surname: "",
+      email: "",
+      password: "",
       // role: 'patient',
-      role: 'doctor',
-      status: '',
+      role: "doctor",
+      status: "",
       counter: 1,
-      hpcsa: '',
-      practiceNum: '',
-      age: '',
-      gender: '',
-      diagnosis: '',
-      error: '',
-      
+      hpcsa: "",
+      practiceNum: "",
+      age: "",
+      gender: "",
+      diagnosis: "",
+      error: "",
     };
   }
   onNameChanged(e) {
@@ -77,25 +73,23 @@ export default class register extends Component {
 
   onAgeChanged(e) {
     this.setState({
-      age: e.target.value
+      age: e.target.value,
     });
   }
 
   onGenderChanged(e) {
     this.setState({
-      gender: e.target.value
+      gender: e.target.value,
     });
   }
 
   onDiagnosisChanged(e) {
     this.setState({
-      diagnosis: e.target.value
+      diagnosis: e.target.value,
     });
-
-   
   }
 
-/*
+  /*
   toggleSwitch() {
 
     let count = this.state.counter;
@@ -114,93 +108,111 @@ export default class register extends Component {
   }
 */
 
-/*render functions below are coded to specifically show certain fields of 
+  /*render functions below are coded to specifically show certain fields of 
 text for either a doctor or for the patient and depending on which way the switch 
 is turned, certain fields of text are shown. */
 
   renderHPCSA() {
-    if (this.state.role === 'patient') {return; } 
-    return <div className="p-3 body">
-          <input
-            value={this.state.hpcsa}
-            onChange={(e) => this.onHPCSAChanged(e)}
-            type="text"
-            className="form-control"
-            placeholder="HPCSA Number"
-          />
-        </div>
+    if (this.state.role === "patient") {
+      return;
+    }
+    return (
+      <div className="p-3 body">
+        <input
+          value={this.state.hpcsa}
+          onChange={(e) => this.onHPCSAChanged(e)}
+          type="text"
+          className="form-control"
+          placeholder="HPCSA Number"
+        />
+      </div>
+    );
   }
 
   renderPracticeNum() {
-    if (this.state.role === 'patient') {return; } 
-    return <div className="p-3 body">
-          <input
-            value={this.state.practiceNum}
-            onChange={(e) => this.onPracticeNumChanged(e)}
-            type="text"
-            className="form-control"
-            placeholder="Practice Number"
-          />
-        </div>
+    if (this.state.role === "patient") {
+      return;
+    }
+    return (
+      <div className="p-3 body">
+        <input
+          value={this.state.practiceNum}
+          onChange={(e) => this.onPracticeNumChanged(e)}
+          type="text"
+          className="form-control"
+          placeholder="Practice Number"
+        />
+      </div>
+    );
   }
 
   renderAge() {
-    if (this.state.role === 'doctor') {return; } 
-    return <div className="p-3 body">
-          <input
-            value={this.state.age}
-            onChange={(e) => this.onAgeChanged(e)}
-            type="number"
-            className="form-control"
-            placeholder="Age"
-          />
-        </div>
+    if (this.state.role === "doctor") {
+      return;
+    }
+    return (
+      <div className="p-3 body">
+        <input
+          value={this.state.age}
+          onChange={(e) => this.onAgeChanged(e)}
+          type="number"
+          className="form-control"
+          placeholder="Age"
+        />
+      </div>
+    );
   }
 
   renderGender() {
-    if (this.state.role === 'doctor') {return; } 
-    return <div className="p-3 body">
-          <input
-            value={this.state.gender}
-            onChange={(e) => this.onGenderChanged(e)}
-            type="text"
-            className="form-control"
-            placeholder="Gender"
-          />
-        </div>
+    if (this.state.role === "doctor") {
+      return;
+    }
+    return (
+      <div className="p-3 body">
+        <input
+          value={this.state.gender}
+          onChange={(e) => this.onGenderChanged(e)}
+          type="text"
+          className="form-control"
+          placeholder="Gender"
+        />
+      </div>
+    );
   }
 
   renderDiagnosis() {
-    if (this.state.role === 'doctor') {return; } 
-    return <div className="p-3 body">
-          <input
-            value={this.state.diagnosis}
-            onChange={(e) => this.onDiagnosisChanged(e)}
-            type="text"
-            className="form-control"
-            placeholder="Primary Diagnosis"
-          />
-        </div>
+    if (this.state.role === "doctor") {
+      return;
+    }
+    return (
+      <div className="p-3 body">
+        <input
+          value={this.state.diagnosis}
+          onChange={(e) => this.onDiagnosisChanged(e)}
+          type="text"
+          className="form-control"
+          placeholder="Primary Diagnosis"
+        />
+      </div>
+    );
   }
-
-  
 
   async register(e) {
     e.preventDefault();
-    
+
     try {
-      const {email, password} = this.state;
+      const { email, password } = this.state;
       await this.auth.createUserWithEmailAndPassword(email, password);
 
-      await this.db.collection('user-roles').doc().set({
-          userId: this.auth.currentUser.uid,
-          role: this.state.role,
+      await this.db.collection("user-roles").doc().set({
+        userId: this.auth.currentUser.uid,
+        role: this.state.role,
       });
 
       console.log(e);
-  
-      if (this.state.role === 'patient') {
-        await this.db.collection('patients').doc().set({
+
+      if (this.state.role === "patient") {
+        await this.db.collection("patients").doc().set({
           userId: this.auth.currentUser.uid,
           age: this.state.age,
           diagnosis: this.state.diagnosis,
@@ -209,44 +221,43 @@ is turned, certain fields of text are shown. */
         });
       }
 
-      if (this.state.role === 'doctor') {
-        await this.db.collection('doctors').doc().set({
+      if (this.state.role === "doctor") {
+        await this.db.collection("doctors").doc().set({
           userId: this.auth.currentUser.uid,
           firstName: this.state.firstName,
           surname: this.state.surname,
           hpcsa: this.state.hpcsa,
           practiceNum: this.state.practiceNum,
-          status: 'pending'
+          status: "pending",
         });
       }
 
-      this.props.history.push('/doctor-portal');
+      this.props.history.push("/doctor-portal");
       // this.props.history.push('/');
-    } catch(err) {
+    } catch (err) {
       this.setState({ error: err.message });
     }
   }
 
   render() {
-    const {error} = this.state;
+    const { error } = this.state;
     return (
-      
       <div className="container col-7 mt-2">
         <div className="p-5"></div>
         <div className="card card-body text-center">
           <form onSubmit={(e) => this.register(e)}>
-            
             <h1 className="h3 mt-3 text-center">Please Register</h1>
 
-            <div className='row'>
-              <p className='black col-7'>Click Here if a Physician</p>
+            <div className="row">
+              <p className="black col-7">Click Here if a Physician</p>
               <div className="form-check form-switch text-center col-5">
-                <input // onClick={()=> this.toggleSwitch()} 
-                className="form-check-input" 
-                type="checkbox" 
-                id="flexSwitchCheckDefault"/>
+                <input // onClick={()=> this.toggleSwitch()}
+                  className="form-check-input"
+                  type="checkbox"
+                  id="flexSwitchCheckDefault"
+                />
               </div>
-            </div>  
+            </div>
 
             <div className="p-3 body">
               <input
@@ -291,12 +302,9 @@ is turned, certain fields of text are shown. */
             {this.renderPracticeNum()}
 
             <ShowIf isTrue={error}>
-              <div className="alert alert-danger mt-4">
-                  {error}
-              </div>
+              <div className="alert alert-danger mt-4">{error}</div>
             </ShowIf>
 
-            
             <div className="text-center mt-4 body">
               <button className="btn btn-primary px-5" type="submit">
                 Register
@@ -310,9 +318,3 @@ is turned, certain fields of text are shown. */
     );
   }
 }
-
-
-  
-    
-      
-    
