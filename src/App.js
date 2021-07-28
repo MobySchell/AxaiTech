@@ -26,42 +26,79 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            user: null,
-            loading: true,
-            role: "",
-            status: "",
-        };
+    this.state = {
+      user: null,
+      loading: true,
+      // role: '',
+      // status: ''
+      role: localStorage.getItem('role'),
+      status: localStorage.getItem('status')
+    };
 
-        this.db = firebase.firestore();
-        this.auth = firebase.auth();
+    this.db = firebase.firestore();
+    this.auth = firebase.auth();
+
+
+  }
+
+
+  /*
+  this.setState(
+    {selection: this.state.selection.concat(shop_item) },
+    () => {
+      this.saveToLocal();
     }
+    );
 
-    componentDidMount() {
-        this.auth.onAuthStateChanged((user) => {
-            this.setState({ user: user, loading: false });
-            if (user !== null) {
-                this.getUserRole(user.uid);
-            }
-        });
+  saveToLocal() {
+       const local = this.state.favourites;
+       this.localStorage.setItem(‘saveFavorites’, JSON.stringify(local));
+   }
+
+  this.setState(
+    { selection: this.state.selection.concat(shop_item) },
+    this.saveToLocal
+  );
+  */
+  
+  componentDidMount() {
+    this.auth.onAuthStateChanged((user) => {
+      this.setState({ user: user, loading: false });
+      if (user !== null) {
+        this.getUserRole(user.uid);
+      }
+    });
+  }
+
+  async getUserRole(userUid) {
+    const snap1 = await this.db.collection('user-roles').where('userId', '==', userUid).get();
+    snap1.forEach((doc) => {
+      const role = doc.data().role;
+      this.setState({ role: role });
+      localStorage.setItem('role', role);
+    });
+    const {role} = this.state;
+    if (role === "doctor") {
+      const snap2 = await this.db.collection('doctors').where('userId', '==', userUid).get();
+      snap2.forEach((doc) => {
+      const status = doc.data().status;
+        this.setState({ status: status });
+        localStorage.setItem('status', status);
+      });
     }
-
-    async getUserRole(userUid) {
-        const snap = await this.db
-            .collection("doctors")
-            .where("userId", "==", userUid)
-            .get();
-        snap.forEach((doc) => {
-            // const role = doc.data().role;
-            const role = "doctor";
-            const status = doc.data().status;
-            this.setState({
-                role: role,
-                status: status,
-            });
-        });
-    }
-
+  }
+    /*
+    const snap = await this.db.collection('doctors').where('userId', '==', userUid).get();
+    snap.forEach((doc) => {
+      // const role = doc.data().role;
+      const role = "doctor";
+      const status = doc.data().status;
+      this.setState({
+        role: role,
+        status: status
+      });
+    });
+    */
     render() {
         const { user, role, status, loading } = this.state;
         return (
