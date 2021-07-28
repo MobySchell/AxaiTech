@@ -43,52 +43,6 @@ export default class register extends Component {
       firstName: e.target.value,
     });
   }
-  onSurnameChanged(e) {
-    this.setState({
-      surname: e.target.value,
-    });
-  }
-  onEmailChanged(e) {
-    this.setState({
-      email: e.target.value,
-    });
-  }
-
-  onPasswordChanged(e) {
-    this.setState({
-      password: e.target.value,
-    });
-  }
-
-  onHPCSAChanged(e) {
-    this.setState({
-      hpcsa: e.target.value,
-    });
-  }
-
-  onPracticeNumChanged(e) {
-    this.setState({
-      practiceNum: e.target.value,
-    });
-  }
-
-  onAgeChanged(e) {
-    this.setState({
-      age: e.target.value
-    });
-  }
-
-  onGenderChanged(e) {
-    this.setState({
-      gender: e.target.value
-    });
-  }
-
-  onDiagnosisChanged(e) {
-    this.setState({
-      diagnosis: e.target.value
-    });
-  }
 
 /*
   toggleSwitch() {
@@ -118,7 +72,9 @@ is turned, certain fields of text are shown. */
     return <div className="p-3 body">
           <input
             value={this.state.hpcsa}
-            onChange={(e) => this.onHPCSAChanged(e)}
+            onChange={(e) => this.setState({
+              hpcsa: e.target.value,
+            })}
             type="text"
             className="form-control"
             placeholder="HPCSA Number"
@@ -131,7 +87,9 @@ is turned, certain fields of text are shown. */
     return <div className="p-3 body">
           <input
             value={this.state.practiceNum}
-            onChange={(e) => this.onPracticeNumChanged(e)}
+            onChange={(e) => this.setState({
+              practiceNum: e.target.value,
+            })}
             type="text"
             className="form-control"
             placeholder="Practice Number"
@@ -144,7 +102,9 @@ is turned, certain fields of text are shown. */
     return <div className="p-3 body">
           <input
             value={this.state.age}
-            onChange={(e) => this.onAgeChanged(e)}
+            onChange={(e) => this.setState({
+              age: e.target.value
+            })}
             type="number"
             className="form-control"
             placeholder="Age"
@@ -157,7 +117,9 @@ is turned, certain fields of text are shown. */
     return <div className="p-3 body">
           <input
             value={this.state.gender}
-            onChange={(e) => this.onGenderChanged(e)}
+            onChange={(e) => this.setState({
+              gender: e.target.value
+            })}
             type="text"
             className="form-control"
             placeholder="Gender"
@@ -170,7 +132,9 @@ is turned, certain fields of text are shown. */
     return <div className="p-3 body">
           <input
             value={this.state.diagnosis}
-            onChange={(e) => this.onDiagnosisChanged(e)}
+            onChange={(e) => this.setState({
+              diagnosis: e.target.value
+            })}
             type="text"
             className="form-control"
             placeholder="Primary Diagnosis"
@@ -232,7 +196,7 @@ is turned, certain fields of text are shown. */
             
             <h1 className="h3 mt-3 text-center">Please Register</h1>
 
-            <div className='row'>
+            {/* <div className='row'>
               <p className='black col-7'>Click Here if a Physician</p>
               <div className="form-check form-switch text-center col-5">
                 <input // onClick={()=> this.toggleSwitch()} 
@@ -240,12 +204,14 @@ is turned, certain fields of text are shown. */
                 type="checkbox" 
                 id="flexSwitchCheckDefault"/>
               </div>
-            </div>  
+            </div>   */}
 
             <div className="p-3 body">
               <input
                 value={this.state.firstName}
-                onChange={(e) => this.onNameChanged(e)}
+                onChange={(e) => this.setState({
+                  firstName: e.target.value,
+                })}
                 type="text"
                 className="form-control"
                 placeholder="First Name"
@@ -254,7 +220,9 @@ is turned, certain fields of text are shown. */
             <div className="p-3 body">
               <input
                 value={this.state.surname}
-                onChange={(e) => this.onSurnameChanged(e)}
+                onChange={(e) => this.setState({
+                  surname: e.target.value,
+                })}
                 type="text"
                 className="form-control"
                 placeholder="Surname"
@@ -263,7 +231,9 @@ is turned, certain fields of text are shown. */
             <div className="p-3 body">
               <input
                 value={this.state.email}
-                onChange={(e) => this.onEmailChanged(e)}
+                onChange={(e) => this.setState({
+                  email: e.target.value,
+                })}
                 type="email"
                 className="form-control"
                 placeholder="Email Address"
@@ -272,7 +242,9 @@ is turned, certain fields of text are shown. */
             <div className="p-3 body">
               <input
                 value={this.state.password}
-                onChange={(e) => this.onPasswordChanged(e)}
+                onChange={(e) => this.setState({
+                  password: e.target.value,
+                })}
                 type="password"
                 className="form-control"
                 placeholder="Password"

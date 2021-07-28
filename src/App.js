@@ -12,15 +12,15 @@ import Home from "./components/Home";
 import DoctorPortal from "./components/DoctorPortal";
 import PatientPortal from "./components/PatientPortal";
 // import background from './images/option7.jpg';
-import Firebase from "./firebase/firebase";
-import Login from "./components/login/Login";
+import firebase from "./firebase/firebase";
 import register from "./components/login/register";
 import PropsRoute from "./components/routing/PropsRoute";
 import GuardedRoute from "./components/routing/GuardedRoute";
 import StatusPage from "./components/StatusPage";
-import DoctorLogin from "./components/login/DoctorLogin";
-import DifferentiatorLogin from "./components/login/DifferentiatorLogin";
+
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
+import DoctorRegister from "./components/login/DoctorRegister";
+import Login from "./components/login/Login";
 
 class App extends Component {
     constructor(props) {
@@ -33,8 +33,8 @@ class App extends Component {
             status: "",
         };
 
-        this.db = Firebase.firestore();
-        this.auth = Firebase.auth();
+        this.db = firebase.firestore();
+        this.auth = firebase.auth();
     }
 
     componentDidMount() {
@@ -78,25 +78,26 @@ class App extends Component {
                             <Route path="/product" exact component={Product} />
                             <Route path="/" exact component={Home} />
                             <Route path="/about" exact component={About} />
+
+                            {/* Testing */}
+                            <Route path="/loginEdit" exact component={Login} />
+                            <Route path="/doctorRegister" exact component={DoctorRegister} />
                             <Route
-                                path="/resources"
+                                path="/registerEdit"
                                 exact
-                                component={Resources}
-                            />
-                            <Route
-                                path="/differentiatorLogin"
-                                exact
-                                component={DifferentiatorLogin}
+                                component={register}
                             />
                             <Route
                                 path="/differentiatorRegister"
                                 exact
                                 component={DifferentiatorRegister}
                             />
+                            {/*  */}
+
                             <Route
-                                path="/doctorlogin"
+                                path="/resources"
                                 exact
-                                component={DoctorLogin}
+                                component={Resources}
                             />
                             <PropsRoute
                                 path="/login"

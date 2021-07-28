@@ -8,8 +8,6 @@ import "./styles.css";
 import Firebase from "../../firebase/firebase";
 import ShowIf from "../ShowIf";
 
-// const auth = Firebase.instance().auth;
-
 export default class Login extends Component {
     constructor(props) {
         super(props);
@@ -31,18 +29,6 @@ export default class Login extends Component {
             role: "",
             status: "",
         };
-    }
-
-    onEmailChanged(e) {
-        this.setState({
-            email: e.target.value,
-        });
-    }
-
-    onPasswordChanged(e) {
-        this.setState({
-            password: e.target.value,
-        });
     }
 
     componentDidMount() {
@@ -104,7 +90,9 @@ export default class Login extends Component {
                         <div className="p-3 body">
                             <input
                                 value={this.state.email}
-                                onChange={(e) => this.onEmailChanged(e)}
+                                onChange={(e) => this.setState({
+                                    email: e.target.value,
+                                })}
                                 type="email"
                                 className="form-control "
                                 placeholder="Email Address"
@@ -113,7 +101,9 @@ export default class Login extends Component {
                         <div className="p-3 body">
                             <input
                                 value={this.state.password}
-                                onChange={(e) => this.onPasswordChanged(e)}
+                                onChange={(e) => this.setState({
+                                    password: e.target.value,
+                                })}
                                 type="password"
                                 className="form-control"
                                 placeholder="Password"

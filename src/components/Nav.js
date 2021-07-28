@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import ximage from "../images/Axaitech.png";
 import { Link } from "react-router-dom";
 import "./component styles/Nav.css";
-import Firebase from "../firebase/firebase";
+import firebase from "../firebase/firebase";
 
 export default class Nav extends Component {
     constructor(props) {
@@ -13,7 +13,7 @@ export default class Nav extends Component {
             user: props.user,
         };
 
-        this.auth = Firebase.auth();
+        this.auth = firebase.auth();
     }
 
     async logout() {
@@ -32,7 +32,8 @@ export default class Nav extends Component {
             <button className="btn btn-outline-light me-3" type="submit">
                 <Link
                     className="p-2 nav-link"
-                    to="/DifferentiatorLogin"
+                    // to="/Login"
+                    to="/login" 
                     style={{ textDecoration: "none" }}
                 >
                     Login{" "}
@@ -145,6 +146,27 @@ export default class Nav extends Component {
                                     Resources{" "}
                                 </Link>
                             </li>
+
+                            {/* Testing */}
+                            <li className="nav-item">
+                                <Link
+                                    className="p-2 nav-link"
+                                    to="/loginEdit"
+                                    style={{ textDecoration: "none" }}
+                                >
+                                    Login
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link
+                                    className="p-2 nav-link"
+                                    to="/registerEdit"
+                                    style={{ textDecoration: "none" }}
+                                >
+                                    Register
+                                </Link>
+                            </li>
+                            {/*  */}
                         </ul>
                         <div>
                             {this.renderLogin()}
