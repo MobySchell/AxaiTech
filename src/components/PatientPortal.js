@@ -7,8 +7,8 @@ export default class PatientPortal extends Component {
     constructor(props){
         super(props);
 
-        this.db = Firebase.instance().db;
-        this.storage = Firebase.instance().storage;
+        // this.db = Firebase.instance().db;
+        // this.storage = Firebase.instance().storage;
 
         this.state = {
                 firstName: '',

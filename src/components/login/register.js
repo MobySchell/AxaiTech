@@ -14,20 +14,23 @@ export default class register extends Component {
   constructor(props) {
     super(props);
 
+    /*
     if (this.props.user) {
       this.props.history.push('/');
     }
+    */
 
     this.auth = Firebase.auth();
     this.db = Firebase.firestore();
+
+    // ADD: onclick of doctor button or patient button sets the role to doctor / patient respectively
 
     this.state = {
       firstName: '',
       surname: '',
       email: '',
       password: '',
-      // role: 'patient',
-      role: '',
+      role: 'doctor',
       status: '',
       counter: 1,
       hpcsa: '',
@@ -193,7 +196,8 @@ is turned, certain fields of text are shown. */
       });
 
       console.log(e);
-  
+
+      /*
       if (this.state.role === 'patient') {
         await this.db.collection('patients').doc().set({
           userId: this.auth.currentUser.uid,
@@ -203,6 +207,7 @@ is turned, certain fields of text are shown. */
           surname: this.state.surname,
         });
       }
+      */
 
       if (this.state.role === 'doctor') {
         await this.db.collection('doctors').doc().set({
