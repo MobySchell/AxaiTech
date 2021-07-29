@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Firebase from '../firebase/firebase';
+// import firebase from '../firebase/firebase';
 
 export default class PatientPortal extends Component {
 
@@ -7,8 +7,8 @@ export default class PatientPortal extends Component {
     constructor(props){
         super(props);
 
-        this.db = Firebase.instance().db;
-        this.storage = Firebase.instance().storage;
+        // this.db = firebase.firestore();
+        // this.auth = firebase.auth();
 
         this.state = {
                 firstName: '',

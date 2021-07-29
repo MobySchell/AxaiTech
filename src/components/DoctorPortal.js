@@ -1,34 +1,74 @@
-import pic from '../images/BelindaDoc.jpg';
+//import {pic} from '../images/BelindaDoc.jpg';
 import React, { Component } from 'react';
-import Firebase from '../firebase/firebase';
+import firebase from '../firebase/firebase';
 import 'firebase/firestore'
 
 export default class DoctorPortal extends Component {
   constructor(props){
     super(props); 
-    this.db = Firebase.firestore();
+    this.db = firebase.firestore();
+    this.auth = firebase.auth();
     this.state = {
-      details: []
+      details: [],
+      name: '',
+      surname: '',
+      practiceNum: '',
+      email: '',
+      user: '',
+      id:'',
+      hpcsa: '',
+      status: '',
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.auth.onAuthStateChanged((user) => {
+        this.setState({ user: user });
+        if (user !== null) {
+            this.getRoleStatus(user.uid);
+            this.getUserDetails(user.uid);
+        }
+    });
+  }
+
+  async getRoleStatus(userUid) {
+    const snap1 = await this.db
+        .collection("user-roles")
+        .where("userId", "==", userUid)
+        .get();
+    snap1.forEach((doc) => {
+        console.log(doc.data().userId);
+        this.setState({
+          id: doc.data().userId
+        });
+        
+    });
+  }
+
+   async getUserDetails(id){
     try{
-      const rem = this.db.collection("doctor").get();
-      const details = rem.docs.map(doc => doc.data());
-      console.log(details);
+      const detz = await this.db
+      .collection("doctors")
+    .where("userId", "==", id)
+    .get();
+    detz.forEach((doc) => {
+      console.log(doc.data())
+      console.log(doc.data().firstName)
+      this.setState({
+        name: doc.data().firstName,
+        surname: doc.data().surname,
+        practiceNum: doc.data().practiceNum,
+        status: doc.data().status,
+        hpcsa: doc.data().hpcsa
+
+      })
+    })
+
+      console.log("User")
     }catch(err){
       console.log(err);
     }
   }
-
-  // show(user){
-  //   console.log(user);
-  //   const rem = this.db.collection("doctor").get();
-  //   const details = rem.docs.map(doc => doc.data());
-  //   console.log(details);
-  // // Do something
-  // }
 
   render() {
     return (
@@ -36,18 +76,19 @@ export default class DoctorPortal extends Component {
       //TODO: fill this page according to instructions from AxaiTech
 
       <div className="p-5">
-        <h1 className="text-center">DOCTOR PORTAL</h1>
+        <h1 className="text-center">DOCTORS PORTAL</h1>
         <div className="card mb-3">
           <div className="row g-0">
             <div className="col-md-4">
-              <img src={pic} onClick={this.show} className="img-fluid img-thumbnail rounded-circle" alt="..." />
+              <img className="img-fluid img-thumbnail rounded-circle" alt="..." />
             </div>
             <div className="col-md-8">
               <div className="card-body">
-                <h5 className="card-title">DR Susan Scholtz</h5>
+                <h5 className="card-title">{this.state.name} {this.state.surname} </h5>
                 <p className="card-text text-dark">Occupation: <em>Oncologist</em></p>
-                <p className="card-text text-dark">Practise: <em>University of CT</em></p>
-                <p className="card-text text-dark">HBSCS number: <em>20938-345</em></p>
+                <p className="card-text text-dark">Status: <em>{this.state.status}</em></p>
+                <p className="card-text text-dark">Practise Number: <em>{this.state.practiceNum}</em></p>
+                <p className="card-text text-dark">HPCSA number: <em> {this.state.hpcsa} </em></p>
               </div>
             </div>
           </div>
