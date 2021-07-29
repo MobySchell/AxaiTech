@@ -1,7 +1,35 @@
 import pic from '../images/BelindaDoc.jpg';
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Firebase from '../firebase/firebase';
+import 'firebase/firestore'
 
 export default class DoctorPortal extends Component {
+  constructor(props){
+    super(props); 
+    this.db = Firebase.firestore();
+    this.state = {
+      details: []
+    }
+  }
+
+  async componentDidMount() {
+    try{
+      const rem = this.db.collection("doctor").get();
+      const details = rem.docs.map(doc => doc.data());
+      console.log(details);
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  // show(user){
+  //   console.log(user);
+  //   const rem = this.db.collection("doctor").get();
+  //   const details = rem.docs.map(doc => doc.data());
+  //   console.log(details);
+  // // Do something
+  // }
+
   render() {
     return (
 
@@ -12,7 +40,7 @@ export default class DoctorPortal extends Component {
         <div className="card mb-3">
           <div className="row g-0">
             <div className="col-md-4">
-              <img src={pic} className="img-fluid img-thumbnail rounded-circle" alt="..." />
+              <img src={pic} onClick={this.show} className="img-fluid img-thumbnail rounded-circle" alt="..." />
             </div>
             <div className="col-md-8">
               <div className="card-body">
