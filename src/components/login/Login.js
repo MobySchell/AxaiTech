@@ -109,6 +109,7 @@ export default class Login extends Component {
             }, 5000);
         } catch (err) {
             this.setState({ error: err.message });
+            console.log(err)
         }
     }
 
