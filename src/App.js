@@ -15,7 +15,10 @@ import PatientPortal from "./components/PatientPortal";
 import firebase from "./firebase/firebase";
 import register from "./components/login/register";
 import PropsRoute from "./components/routing/PropsRoute";
-import GuardedRoute from "./components/routing/GuardedRoute";
+// import GuardedRoute from "./components/routing/GuardedRoute";
+import DoctorStatusRoute from "./components/routing/DoctorStatusRoute";
+import DoctorPortalRoute from "./components/routing/DoctorPortalRoute";
+import PatientPortalRoute from "./components/routing/PatientPortalRoute";
 import StatusPage from "./components/StatusPage";
 
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
@@ -40,26 +43,6 @@ class App extends Component {
 
 
   }
-
-
-  /*
-  this.setState(
-    {selection: this.state.selection.concat(shop_item) },
-    () => {
-      this.saveToLocal();
-    }
-    );
-
-  saveToLocal() {
-       const local = this.state.favourites;
-       this.localStorage.setItem(‘saveFavorites’, JSON.stringify(local));
-   }
-
-  this.setState(
-    { selection: this.state.selection.concat(shop_item) },
-    this.saveToLocal
-  );
-  */
   
   componentDidMount() {
     this.auth.onAuthStateChanged((user) => {
@@ -149,7 +132,7 @@ class App extends Component {
                                 user={user}
                             />
 
-                            <GuardedRoute
+                            <DoctorStatusRoute
                                 path="/status-page"
                                 exact
                                 component={StatusPage}
@@ -157,7 +140,7 @@ class App extends Component {
                                 role={role}
                                 status={status}
                             />
-                            <GuardedRoute
+                            <DoctorPortalRoute
                                 path="/doctor-portal"
                                 exact
                                 component={DoctorPortal}
@@ -165,7 +148,7 @@ class App extends Component {
                                 role={role}
                                 status={status}
                             />
-                            <GuardedRoute
+                            <PatientPortalRoute
                                 path="/patient-portal"
                                 exact
                                 component={PatientPortal}

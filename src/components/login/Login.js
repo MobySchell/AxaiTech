@@ -83,30 +83,29 @@ export default class Login extends Component {
             await this.getRoleStatus(this.props.user.uid);
 
             const { user, role, status } = this.state;
-
-            setTimeout(() => {
-                if (user) {
-                    if (role === "doctor") {
-                        if (status === "approved") {
-                            console.log("role: " + role);
-                            console.log("status: " + status);
-                            console.log("doctor is approved");
-                            this.props.history.push("/doctor-portal");
-                        } else {
-                            console.log("role: " + role);
-                            console.log("status: " + status);
-                            console.log("doctor is not approved");
-                            this.props.history.push("/status-page");
-                        }
+            
+            if (user) {
+                if (role === "doctor") {
+                    if (status === "approved") {
+                        console.log("role: " + role);
+                        console.log("status: " + status);
+                        console.log("doctor is approved");
+                        this.props.history.push("/doctor-portal");
                     } else {
                         console.log("role: " + role);
                         console.log("status: " + status);
-                        console.log(this.state);
-                        console.log("not a doctor");
-                        this.props.history.push("/patient-portal");
+                        console.log("doctor is not approved");
+                        this.props.history.push("/status-page");
                     }
+                } else {
+                    console.log("role: " + role);
+                    console.log("status: " + status);
+                    console.log(this.state);
+                    console.log("not a doctor");
+                    this.props.history.push("/patient-portal");
                 }
-            }, 5000);
+            }
+
         } catch (err) {
             this.setState({ error: err.message });
         }
