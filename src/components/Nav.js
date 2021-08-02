@@ -19,9 +19,12 @@ export default class Nav extends Component {
     async logout() {
         try {
             await this.auth.signOut();
+            localStorage.removeItem("role");
+            localStorage.removeItem("status");
         } catch (err) {
             console.log(err);
         }
+        window.location.reload(false);
     }
 
     renderLogin() {
@@ -33,7 +36,7 @@ export default class Nav extends Component {
                 <Link
                     className="p-2 nav-link"
                     // to="/Login"
-                    to="/login" 
+                    to="/login"
                     style={{ textDecoration: "none" }}
                 >
                     Login{" "}
