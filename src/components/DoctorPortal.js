@@ -1,7 +1,8 @@
-//import {pic} from '../images/BelindaDoc.jpg';
+// import pic from '../images/BelindaDoc.jpg';
 import React, { Component } from "react";
 import firebase from "../firebase/firebase";
 import "firebase/firestore";
+import doctorprofile from "../images/doctorprofile.jpg";
 
 export default class DoctorPortal extends Component {
     constructor(props) {
@@ -69,16 +70,20 @@ export default class DoctorPortal extends Component {
     }
 
     render() {
+        const imagestyle = {
+            width: "300px",
+            height: "300px",
+        };
         return (
-            //TODO: fill this page according to instructions from AxaiTech
-
             <div className="p-5">
                 <h1 className="text-center">DOCTORS PORTAL</h1>
                 <div className="card mb-3">
                     <div className="row g-0">
                         <div className="col-md-4">
                             <img
+                                style={imagestyle}
                                 className="img-fluid img-thumbnail rounded-circle"
+                                src={doctorprofile}
                                 alt="..."
                             />
                         </div>
@@ -91,7 +96,10 @@ export default class DoctorPortal extends Component {
                                     Occupation: <em>Oncologist</em>
                                 </p>
                                 <p className="card-text text-dark">
-                                    Status: <em>{this.state.status}</em>
+                                    Status:{" "}
+                                    <em style={{ color: "limegreen" }}>
+                                        {this.state.status}
+                                    </em>
                                 </p>
                                 <p className="card-text text-dark">
                                     Practise Number:{" "}

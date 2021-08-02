@@ -72,7 +72,7 @@ is turned, certain fields of text are shown. */
         });
       }
 
-      this.props.history.push("/doctor-portal");
+      this.props.history.push("/status-page");
       // this.props.history.push('/');
     } catch (err) {
       this.setState({ error: err.message });

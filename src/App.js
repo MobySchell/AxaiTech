@@ -16,7 +16,12 @@ import firebase from "./firebase/firebase";
 import register from "./components/login/register";
 import PropsRoute from "./components/routing/PropsRoute";
 import GuardedRoute from "./components/routing/GuardedRoute";
+import DoctorStatusRoute from "./components/routing/DoctorStatusRoute";
+import DoctorPortalRoute from "./components/routing/DoctorPortalRoute";
+import PatientPortalRoute from "./components/routing/PatientPortalRoute";
+import AdminPortalRoute from "./components/routing/AdminPortalRoute";
 import StatusPage from "./components/StatusPage";
+import AdminPortal from "./components/AdminPortal";
 
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
 import DoctorRegister from "./components/login/DoctorRegister";
@@ -39,25 +44,6 @@ class App extends Component {
         this.db = firebase.firestore();
         this.auth = firebase.auth();
     }
-
-    /*
-  this.setState(
-    {selection: this.state.selection.concat(shop_item) },
-    () => {
-      this.saveToLocal();
-    }
-    );
-
-  saveToLocal() {
-       const local = this.state.favourites;
-       this.localStorage.setItem(‘saveFavorites’, JSON.stringify(local));
-   }
-
-  this.setState(
-    { selection: this.state.selection.concat(shop_item) },
-    this.saveToLocal
-  );
-  */
 
     componentDidMount() {
         this.auth.onAuthStateChanged((user) => {
@@ -104,7 +90,7 @@ class App extends Component {
                             className="backgroundImage"
                             // style={{ backgroundImage: `url(${background}`}}
                         >
-                            <Nav user={user} />
+                            <Nav user={user} role={role} status={status} />
                             <Route path="/product" exact component={Product} />
                             <Route path="/" exact component={Home} />
                             <Route path="/about" exact component={About} />
@@ -146,7 +132,7 @@ class App extends Component {
                                 user={user}
                             />
 
-                            <GuardedRoute
+                            <DoctorStatusRoute
                                 path="/status-page"
                                 exact
                                 component={StatusPage}
@@ -154,7 +140,7 @@ class App extends Component {
                                 role={role}
                                 status={status}
                             />
-                            <GuardedRoute
+                            <DoctorPortalRoute
                                 path="/doctor-portal"
                                 exact
                                 component={DoctorPortal}
@@ -162,7 +148,7 @@ class App extends Component {
                                 role={role}
                                 status={status}
                             />
-                            <GuardedRoute
+                            <PatientPortalRoute
                                 path="/patient-portal"
                                 exact
                                 component={PatientPortal}
@@ -173,6 +159,13 @@ class App extends Component {
                                 path="/admin"
                                 exact
                                 component={Admin}
+                                user={user}
+                                role={role}
+                            />
+                            <AdminPortalRoute
+                                path="/admin-portal"
+                                exact
+                                component={AdminPortal}
                                 user={user}
                                 role={role}
                             />

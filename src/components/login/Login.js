@@ -54,18 +54,6 @@ export default class Login extends Component {
                 this.setState({ status: status });
             });
         }
-        /*
-        const snap = await this.db.collection('doctors').where('userId', '==', userUid).get();
-        snap.forEach((doc) => {
-          // const role = doc.data().role;
-          const role = "doctor";
-          const status = doc.data().status;
-          this.setState({
-            role: role,
-            status: status
-          });
-        });
-        */
     }
 
     async login(e) {

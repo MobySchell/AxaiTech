@@ -11,6 +11,8 @@ export default class Nav extends Component {
         super(props);
         this.state = {
             user: props.user,
+            role: props.role,
+            status: props.status
         };
 
         this.auth = firebase.auth();
@@ -149,27 +151,6 @@ export default class Nav extends Component {
                                     Resources{" "}
                                 </Link>
                             </li>
-
-                            {/* Testing */}
-                            <li className="nav-item">
-                                <Link
-                                    className="p-2 nav-link"
-                                    to="/loginEdit"
-                                    style={{ textDecoration: "none" }}
-                                >
-                                    Login
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link
-                                    className="p-2 nav-link"
-                                    to="/registerEdit"
-                                    style={{ textDecoration: "none" }}
-                                >
-                                    Register
-                                </Link>
-                            </li>
-                            {/*  */}
                         </ul>
                         <div>
                             {this.renderLogin()}
