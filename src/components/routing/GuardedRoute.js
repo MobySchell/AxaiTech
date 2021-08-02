@@ -11,32 +11,15 @@ import { Route, Redirect } from 'react-router-dom';
 import PatientPortal from '../PatientPortal';
 import DoctorPortal from '../DoctorPortal';
 import StatusPage from '../StatusPage'
+import Admin from '../admin/Admin';
 
 export default class GuardedRoute extends Component {
   render() {
-    // const { component: Component, user, role, status, ...rest } = this.props;
     const { component: Component, user, role, status, ...rest} = this.props;
-    
-    /*
-    component={StatusPage}
-    component={StatusPage}
-    user={user}
-    role={role}
-    status={status}
-    */
-
-    // this.auth = Firebase.auth();
-    // this.auth.currentUser
-
-    // console.log("top of Guarded route role:" + role)
-    // console.log("top of Guarded route status:" + status)
 
     return (
       <Route {...rest} render={(props) => {
 
-
-        // setTimeout(() => 
-        // {                 
           if (user !== null && role === "patient") {
             console.log("this does get fired 1");
             console.log(user);
@@ -55,32 +38,14 @@ export default class GuardedRoute extends Component {
             console.log(role);
             console.log(status);
             return <StatusPage {...{ ...props, ...rest, user, status }} />;
-          } else {
+          } else if (role === "admin") {
             console.log("this does get fired 4");
             console.log(user);
             console.log(role);
-            console.log(status);
-            return <Redirect to="/" />;
-          }
-        // }, 5000);
-
-          
-
-          /*
-          if (user) {
-            if (role === 'doctor') {
-              if (status === 'approved') {
-                return <DoctorPortal {...{ ...props, ...rest, user }} />
-              } else {
-                return <StatusPage {...{ ...props, ...rest, user }} />
-              }
-            } else if (role === 'patient') {
-              return <PatientPortal {...{ ...props, ...rest, user }} />;
-            }          
+            return < Admin />
           } else {
             return <Redirect to="/" />;
           }
-          */
         }}
       />
     );
