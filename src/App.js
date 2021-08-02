@@ -21,28 +21,26 @@ import StatusPage from "./components/StatusPage";
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
 import DoctorRegister from "./components/login/DoctorRegister";
 import Login from "./components/login/Login";
+import Admin from "./components/admin/Admin";
 
 class App extends Component {
     constructor(props) {
         super(props);
 
-    this.state = {
-      user: null,
-      loading: true,
-      // role: '',
-      // status: ''
-      role: localStorage.getItem('role'),
-      status: localStorage.getItem('status')
-    };
+        this.state = {
+            user: null,
+            loading: true,
+            // role: '',
+            // status: ''
+            role: localStorage.getItem("role"),
+            status: localStorage.getItem("status"),
+        };
 
-    this.db = firebase.firestore();
-    this.auth = firebase.auth();
+        this.db = firebase.firestore();
+        this.auth = firebase.auth();
+    }
 
-
-  }
-
-
-  /*
+    /*
   this.setState(
     {selection: this.state.selection.concat(shop_item) },
     () => {
@@ -60,45 +58,40 @@ class App extends Component {
     this.saveToLocal
   );
   */
-  
-  componentDidMount() {
-    this.auth.onAuthStateChanged((user) => {
-      this.setState({ user: user, loading: false });
-      if (user !== null) {
-        this.getUserRole(user.uid);
-      }
-    });
-  }
 
-  async getUserRole(userUid) {
-    const snap1 = await this.db.collection('user-roles').where('userId', '==', userUid).get();
-    snap1.forEach((doc) => {
-      const role = doc.data().role;
-      this.setState({ role: role });
-      localStorage.setItem('role', role);
-    });
-    const {role} = this.state;
-    if (role === "doctor") {
-      const snap2 = await this.db.collection('doctors').where('userId', '==', userUid).get();
-      snap2.forEach((doc) => {
-      const status = doc.data().status;
-        this.setState({ status: status });
-        localStorage.setItem('status', status);
-      });
+    componentDidMount() {
+        this.auth.onAuthStateChanged((user) => {
+            this.setState({ user: user, loading: false });
+            if (user !== null) {
+                this.getUserRole(user.uid);
+            }
+        });
     }
-  }
-    /*
-    const snap = await this.db.collection('doctors').where('userId', '==', userUid).get();
-    snap.forEach((doc) => {
-      // const role = doc.data().role;
-      const role = "doctor";
-      const status = doc.data().status;
-      this.setState({
-        role: role,
-        status: status
-      });
-    });
-    */
+
+    async getUserRole(userUid) {
+        const snap1 = await this.db
+            .collection("user-roles")
+            .where("userId", "==", userUid)
+            .get();
+        snap1.forEach((doc) => {
+            const role = doc.data().role;
+            this.setState({ role: role });
+            localStorage.setItem("role", role);
+        });
+        const { role } = this.state;
+        if (role === "doctor") {
+            const snap2 = await this.db
+                .collection("doctors")
+                .where("userId", "==", userUid)
+                .get();
+            snap2.forEach((doc) => {
+                const status = doc.data().status;
+                this.setState({ status: status });
+                localStorage.setItem("status", status);
+            });
+        }
+    }
+
     render() {
         const { user, role, status, loading } = this.state;
         return (
@@ -118,7 +111,11 @@ class App extends Component {
 
                             {/* Testing */}
                             <Route path="/loginEdit" exact component={Login} />
-                            <Route path="/doctorRegister" exact component={DoctorRegister} />
+                            <Route
+                                path="/doctorRegister"
+                                exact
+                                component={DoctorRegister}
+                            />
                             <Route
                                 path="/registerEdit"
                                 exact
@@ -169,6 +166,13 @@ class App extends Component {
                                 path="/patient-portal"
                                 exact
                                 component={PatientPortal}
+                                user={user}
+                                role={role}
+                            />
+                            <GuardedRoute
+                                path="/admin"
+                                exact
+                                component={Admin}
                                 user={user}
                                 role={role}
                             />
