@@ -47,7 +47,7 @@ export default class DoctorRegister extends Component {
                 });
             }
 
-            this.props.history.push("/doctor-portal");
+            this.props.history.push("/status-page");
             // this.props.history.push('/');
         } catch (err) {
             this.setState({ error: err.message });
@@ -113,6 +113,7 @@ export default class DoctorRegister extends Component {
                                 placeholder="Password"
                             />
                         </div>
+                        {/*
                         <div className="p-3 body">
                             <input
                                 value={this.state.age}
@@ -152,6 +153,7 @@ export default class DoctorRegister extends Component {
                                 placeholder="Primary Diagnosis"
                             />
                         </div>
+                            */}
                         <div className="p-3 body">
                             <input
                                 value={this.state.hpcsa}

@@ -97,6 +97,8 @@ export default class Login extends Component {
                         console.log("doctor is not approved");
                         this.props.history.push("/status-page");
                     }
+                } else if (role === "admin") {
+                    this.props.history.push("/admin-portal");
                 } else {
                     console.log("role: " + role);
                     console.log("status: " + status);

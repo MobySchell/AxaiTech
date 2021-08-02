@@ -11,6 +11,8 @@ export default class Nav extends Component {
         super(props);
         this.state = {
             user: props.user,
+            role: props.role,
+            status: props.status
         };
 
         this.auth = firebase.auth();
@@ -19,6 +21,9 @@ export default class Nav extends Component {
     async logout() {
         try {
             await this.auth.signOut();
+            this.props.role = ''
+            this.props.status = ''
+            this.props.history.push('/');
         } catch (err) {
             console.log(err);
         }
@@ -148,6 +153,7 @@ export default class Nav extends Component {
                             </li>
 
                             {/* Testing */}
+                            {/*
                             <li className="nav-item">
                                 <Link
                                     className="p-2 nav-link"
@@ -166,6 +172,7 @@ export default class Nav extends Component {
                                     Register
                                 </Link>
                             </li>
+                            */}
                             {/*  */}
                         </ul>
                         <div>

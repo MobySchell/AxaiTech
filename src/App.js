@@ -19,7 +19,9 @@ import PropsRoute from "./components/routing/PropsRoute";
 import DoctorStatusRoute from "./components/routing/DoctorStatusRoute";
 import DoctorPortalRoute from "./components/routing/DoctorPortalRoute";
 import PatientPortalRoute from "./components/routing/PatientPortalRoute";
+import AdminPortalRoute from "./components/routing/AdminPortalRoute";
 import StatusPage from "./components/StatusPage";
+import AdminPortal from "./components/AdminPortal";
 
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
 import DoctorRegister from "./components/login/DoctorRegister";
@@ -94,7 +96,11 @@ class App extends Component {
                             className="backgroundImage"
                             // style={{ backgroundImage: `url(${background}`}}
                         >
-                            <Nav user={user} />
+                            <Nav 
+                              user={user}
+                              role={role}
+                              status={status} 
+                            />
                             <Route path="/product" exact component={Product} />
                             <Route path="/" exact component={Home} />
                             <Route path="/about" exact component={About} />
@@ -155,6 +161,14 @@ class App extends Component {
                                 user={user}
                                 role={role}
                             />
+                            <AdminPortalRoute
+                                path="/admin-portal"
+                                exact
+                                component={AdminPortal}
+                                user={user}
+                                role={role}
+                            />
+                            
 
                             <Contact />
                         </div>
