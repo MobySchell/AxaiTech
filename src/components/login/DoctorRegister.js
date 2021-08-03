@@ -43,12 +43,11 @@ export default class DoctorRegister extends Component {
                     surname: this.state.surname,
                     hpcsa: this.state.hpcsa,
                     practiceNum: this.state.practiceNum,
-                    status: "pending", // change pending
+                    status: "pending",
                 });
             }
 
             this.props.history.push("/status-page");
-            // this.props.history.push('/');
         } catch (err) {
             this.setState({ error: err.message });
         }
@@ -113,47 +112,6 @@ export default class DoctorRegister extends Component {
                                 placeholder="Password"
                             />
                         </div>
-                        {/*
-                        <div className="p-3 body">
-                            <input
-                                value={this.state.age}
-                                onChange={(e) =>
-                                    this.setState({
-                                        age: e.target.value,
-                                    })
-                                }
-                                type="number"
-                                className="form-control"
-                                placeholder="Age"
-                            />
-                        </div>
-                        <div className="p-3 body">
-                            <input
-                                value={this.state.gender}
-                                onChange={(e) =>
-                                    this.setState({
-                                        gender: e.target.value,
-                                    })
-                                }
-                                type="text"
-                                className="form-control"
-                                placeholder="Gender"
-                            />
-                        </div>
-                        <div className="p-3 body">
-                            <input
-                                value={this.state.diagnosis}
-                                onChange={(e) =>
-                                    this.setState({
-                                        diagnosis: e.target.value,
-                                    })
-                                }
-                                type="text"
-                                className="form-control"
-                                placeholder="Primary Diagnosis"
-                            />
-                        </div>
-                            */}
                         <div className="p-3 body">
                             <input
                                 value={this.state.hpcsa}
