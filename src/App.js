@@ -19,6 +19,9 @@ import PropsRoute from './components/routing/PropsRoute';
 import GuardedRoute from './components/routing/GuardedRoute';
 import StatusPage from './components/StatusPage';
 import PatientRegister from './components/PatientRegister';
+import TestForm from './components/TestForm';
+
+
 
 class App extends Component {
   constructor(props) {
@@ -75,7 +78,10 @@ class App extends Component {
               <Route path="/resources" exact component={Resources} />
               <PropsRoute path="/login" exact component={Login} user={user} />
               <PropsRoute path="/register" exact component={register} user={user} />
-              <Route path="/patient" exact component={PatientRegister} />
+              <Route path="/Patient" exact component={PatientRegister} />
+              <Route path="/Test" exact component={TestForm} />
+             
+            
 
               <GuardedRoute
                 path="/status-page"

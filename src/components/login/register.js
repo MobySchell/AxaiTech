@@ -5,6 +5,7 @@ we have made a toggle switch to go between the different roles of users and cert
 below reflect certain information needed from either a doctor or a patient
  */
 import React, { Component } from "react";
+import axios from "axios";
 import "./styles.css";
 import Firebase from "../../firebase/firebase";
 import ShowIf from "../ShowIf";
@@ -12,6 +13,7 @@ import ShowIf from "../ShowIf";
 export default class register extends Component {
   constructor(props) {
     super(props);
+    // this.onChange=this.onChange.bind(this);
 
     if (this.props.user) {
       this.props.history.push("/");
@@ -91,11 +93,8 @@ export default class register extends Component {
 
   /*
   toggleSwitch() {
-
     let count = this.state.counter;
-
     this.setState({counter: count + 1})
-
     if (this.state.counter % 2 === 1) {
         this.setState({
           role: 'doctor'
@@ -124,6 +123,7 @@ is turned, certain fields of text are shown. */
           type="text"
           className="form-control"
           placeholder="HPCSA Number"
+          id="hpcsa"
         />
       </div>
     );
@@ -239,13 +239,41 @@ is turned, certain fields of text are shown. */
     }
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const firstName = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const hpcsa = document.getElementById("hpcsa").value;
+
+    axios({
+      method: "POST",
+      url: "http://localhost:3000/register",
+      data: {
+        firstName: firstName,
+        email: email,
+        hpcsa: hpcsa,
+      },
+    }).then((response) => {
+      if (response.data.msg === "success") {
+        alert("Message Sent.");
+        this.resetForm();
+      } else if (response.data.msg === "fail") {
+        alert("Message failed to send.");
+      }
+    });
+  }
+
+  resetForm() {
+    document.getElementById("registerForm").reset();
+  }
+
   render() {
     const { error } = this.state;
     return (
       <div className="container col-7 mt-2">
         <div className="p-5"></div>
         <div className="card card-body text-center">
-          <form onSubmit={(e) => this.register(e)}>
+          <form id="registerForm" onSubmit={(e) => this.handleSubmit(e)}>
             <h1 className="h3 mt-3 text-center">Please Register</h1>
 
             <div className="row">
@@ -261,11 +289,13 @@ is turned, certain fields of text are shown. */
 
             <div className="p-3 body">
               <input
+                required
                 value={this.state.firstName}
                 onChange={(e) => this.onNameChanged(e)}
                 type="text"
                 className="form-control"
                 placeholder="First Name"
+                id="name"
               />
             </div>
             <div className="p-3 body">
@@ -279,11 +309,13 @@ is turned, certain fields of text are shown. */
             </div>
             <div className="p-3 body">
               <input
+                required
                 value={this.state.email}
                 onChange={(e) => this.onEmailChanged(e)}
                 type="email"
                 className="form-control"
                 placeholder="Email Address"
+                id="email"
               />
             </div>
             <div className="p-3 body">
@@ -312,7 +344,6 @@ is turned, certain fields of text are shown. */
             </div>
           </form>
         </div>
-
         <div className="p-5"></div>
       </div>
     );
