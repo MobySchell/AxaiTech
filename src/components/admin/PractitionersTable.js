@@ -1,17 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import { Table } from "react-bootstrap";
+import ToggleSwitch from "../ToggleSwitch";
 
 export default class PractitionersTable extends Component {
     render() {
         return (
-            <div>
-                <table className="table">
+            <div className="p-5">
+                <h1 className="text-center pb-5">PENDING DOCTORS</h1>
+                <Table striped bordered hover variant="dark">
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Surname</th>
-                            <th scope="col">HPCSA</th>
-                            <th scope="col">Practice Number</th>
-                            <th scope="col">Status</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Practise Number</th>
+                            <th>HPCSA Number </th>
+                            <th>Approve?</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,13 +25,15 @@ export default class PractitionersTable extends Component {
                                     <td>{practitioners.surName}</td>
                                     <td>{practitioners.hpcsa}</td>
                                     <td>{practitioners.practiceNum}</td>
-                                    <td>{practitioners.status}</td>
+                                    <td>
+                                        <ToggleSwitch Name="1" />
+                                    </td>
                                 </tr>
-                            )
+                            );
                         })}
                     </tbody>
-                </table>
+                </Table>
             </div>
-        )
+        );
     }
 }

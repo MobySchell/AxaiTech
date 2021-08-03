@@ -78,7 +78,7 @@ export default class Login extends Component {
                     console.log("role: " + role);
                     this.props.history.push("/patient-portal");
                 } else if (role === "admin") {
-                    this.props.history.push("/admin");
+                    this.props.history.push("/admin-portal");
                 } else {
                     this.props.history.push("/");
                 }
@@ -106,6 +106,7 @@ export default class Login extends Component {
                                     })
                                 }
                                 type="email"
+                                name="email"
                                 className="form-control "
                                 placeholder="Email Address"
                             />
@@ -119,6 +120,7 @@ export default class Login extends Component {
                                     })
                                 }
                                 type="password"
+                                name="password"
                                 className="form-control"
                                 placeholder="Password"
                             />

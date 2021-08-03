@@ -12,7 +12,7 @@ export default class Nav extends Component {
         this.state = {
             user: props.user,
             role: props.role,
-            status: props.status
+            status: props.status,
         };
 
         this.auth = firebase.auth();
@@ -21,12 +21,11 @@ export default class Nav extends Component {
     async logout() {
         try {
             await this.auth.signOut();
-            localStorage.removeItem("role");
-            localStorage.removeItem("status");
         } catch (err) {
             console.log(err);
         }
-        window.location.reload(false);
+        localStorage.removeItem("role");
+        localStorage.removeItem("status");
     }
 
     renderLogin() {

@@ -37,18 +37,11 @@ export default class Admin extends Component {
     render() {
         return (
             <div className="container">
-                <div className="container">
-                    <div className="p-5"></div>
-                    <div className="card">
-                        <div className="card-header">Pending Practitioners</div>
-                        <div className="card-body">
-                            <PractitionersTable
-                                practitioners={this.state.practitioners}
-                            />
-                        </div>
-                    </div>
-                    <div className="p-5"></div>
-                </div>
+                <div className="p-5"></div>
+
+                <PractitionersTable practitioners={this.state.practitioners} />
+
+                <div className="p-5"></div>
             </div>
         );
     }

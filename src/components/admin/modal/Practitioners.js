@@ -8,7 +8,6 @@ export default class Practitioners {
         practitioners.surName = data.surname;
         practitioners.hpcsa = data.hpcsa;
         practitioners.practiceNum = data.practiceNum;
-        practitioners.status = data.status;
 
         return practitioners;
     }
