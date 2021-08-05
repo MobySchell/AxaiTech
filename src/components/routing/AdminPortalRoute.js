@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 // import Firebase from '../../firebase/firebase'
 
-import AdminPortal from '../AdminPortal';
+import AdminPortal from '../admin/AdminPortal';
 
 export default class GuardedRoute extends Component {
   render() {

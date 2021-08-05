@@ -21,7 +21,7 @@ import DoctorPortalRoute from "./components/routing/DoctorPortalRoute";
 import PatientPortalRoute from "./components/routing/PatientPortalRoute";
 import AdminPortalRoute from "./components/routing/AdminPortalRoute";
 import StatusPage from "./components/StatusPage";
-import AdminPortal from "./components/AdminPortal";
+import AdminPortal from "./components/admin/AdminPortal";
 
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
 import DoctorRegister from "./components/login/DoctorRegister";
