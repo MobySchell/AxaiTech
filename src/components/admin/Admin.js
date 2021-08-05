@@ -20,15 +20,16 @@ export default class Admin extends Component {
 
     async fetchData() {
         try {
-            const snapshot = await this.db
+            await this.db
                 .collection("doctors")
                 .where("status", "==", "pending")
-                .get();
-            const practitioners = snapshot.docs.map((doc) =>
-                Practitioners.fromFB(doc)
-            );
-
-            this.setState({ practitioners: practitioners });
+                .onSnapshot((querySnapshot) => {
+                    var practitioners = [];
+                    querySnapshot.forEach((doc) => {
+                        practitioners.push(Practitioners.fromFB(doc));
+                    });
+                    this.setState({ practitioners: practitioners });
+                });
         } catch (err) {
             console.log(err);
         }

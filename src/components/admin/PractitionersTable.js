@@ -99,7 +99,7 @@ export default class PractitionersTable extends Component {
                                     className="modal-title"
                                     id="exampleModalLabel"
                                 >
-                                    Header
+                                    {practitioner.firstName}
                                 </h5>
                                 <button
                                     type="button"
@@ -110,7 +110,6 @@ export default class PractitionersTable extends Component {
                             </div>
 
                             <div className="modal-body">
-                                {practitioner.firstName}
                                 <textarea
                                     value={denyMessage}
                                     onChange={(e) =>
