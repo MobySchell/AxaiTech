@@ -34,6 +34,8 @@ class App extends Component {
       status: ''
     };
 
+    
+
     this.db = Firebase.firestore();
     this.auth = Firebase.auth();
 }
@@ -45,7 +47,10 @@ class App extends Component {
         this.getUserRole(user.uid);
       }
     });
+
+
   }
+
 
   async getUserRole(userUid) {
     const snap = await this.db.collection('doctors').where('userId', '==', userUid).get();
@@ -59,6 +64,8 @@ class App extends Component {
       });
     });
   }
+
+  
 
   render() {
     const { user, role, status, loading } = this.state;

@@ -249,7 +249,7 @@ is turned, certain fields of text are shown. */
       method: "POST",
       url: "http://localhost:3000/register",
       data: {
-        firstName: firstName,
+        name : firstName,
         email: email,
         hpcsa: hpcsa,
       },

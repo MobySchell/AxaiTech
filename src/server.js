@@ -7,39 +7,40 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/", router);
-app.listen(3001, () => console.log("Server Running"));
+app.listen(3000, () => console.log("Server Running"));
 
-const contactEmail = nodemailer.createTransport({
-  service: "gmail",
+
+
+const transport = nodemailer.createTransport({
+  host: "darkstorm.aserv.co.za",
+
+  port: 465,
   auth: {
-    user: "axaitech.test@gmail.com",
-    pass: "Password1234!",
+      user: "noreply@copp.co.za",
+      
+      pass: "Mn(1aJ*HHB{3",
   },
+  secure:true
 });
 
-contactEmail.verify((error) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Ready to Send");
-  }
-});
+
 
 router.post("/register", (req, res) => {
+  console.log("register was here")
   const name = req.body.name;
   const email = req.body.email;
   const hpcsa = req.body.hpcsa;
 
   const mail = {
-    from: name,
-    to: "axaitech.test@gmail.com",
+    from: "noreply@copp.co.za",
+    to: "nzayamuia02@gmail.com ", 
     subject: "register Form Submission",
     html: `<p>Name: ${name}</p>
              <p>Email: ${email}</p>
              <p>hpcsa: ${hpcsa}</p>`,
   };
 
-  contactEmail.sendMail(mail, (error) => {
+  transport.sendMail(mail, (error) => {
     if (error) {
       res.json({ status: "ERROR" });
     } else {
