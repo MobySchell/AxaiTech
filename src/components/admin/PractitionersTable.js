@@ -1,14 +1,12 @@
-import React, { Component } from 'react'
-import { Table } from 'react-bootstrap';
-import ToggleSwitch from '../ToggleSwitch';
-import ToggleButton from 'react-bootstrap/ToggleButton'
-import Toggle from 'react-bootstrap-toggle';
-import BootstrapSwitchButton from 'bootstrap-switch-button-react'
-import firebase from '../../firebase/firebase'
-
+import React, { Component } from "react";
+import { Table } from "react-bootstrap";
+import ToggleSwitch from "../ToggleSwitch";
+import ToggleButton from "react-bootstrap/ToggleButton";
+import Toggle from "react-bootstrap-toggle";
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
+import firebase from "../../firebase/firebase";
 
 export default class PractitionersTable extends Component {
-
     constructor(props) {
         super(props);
 
@@ -23,7 +21,7 @@ export default class PractitionersTable extends Component {
     componentWillReceiveProps(props) {
         this.setState({
             pract: props.practitioners,
-        })
+        });
     }
 
     grabId(practitioner) {
@@ -49,10 +47,9 @@ export default class PractitionersTable extends Component {
         }
     }
 
-
-  render() {
-    return (
-        <div className="p-5">
+    render() {
+        return (
+            <div className="p-5">
                 <h1 className="text-center pb-5">PENDING DOCTORS</h1>
                 <Table striped bordered hover variant="dark">
                     <thead>
@@ -70,7 +67,7 @@ export default class PractitionersTable extends Component {
                         {this.props.practitioners.map((practitioners) => {
                             const id = practitioners.id;
                             const status = practitioners.status;
-                            const users = this.state.users
+                            const users = this.state.users;
                             // users.push = status;
                             return (
                                 <tr key={practitioners.id}>
@@ -93,7 +90,7 @@ export default class PractitionersTable extends Component {
                                             Yes
                                         </button>
                                     </td>
-                                    <td style={{ color: 'red' }}>X</td>
+                                    <td style={{ color: "red" }}>X</td>
                                 </tr>
                             );
                         })}
@@ -144,6 +141,6 @@ export default class PractitionersTable extends Component {
                     </div>
                 </div>
             </div>
-    )
-  }
+        );
+    }
 }
