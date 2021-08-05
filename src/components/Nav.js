@@ -21,6 +21,9 @@ export default class Nav extends Component {
     async logout() {
         try {
             await this.auth.signOut();
+            this.props.role = "";
+            this.props.status = "";
+            this.props.history.push("/");
         } catch (err) {
             console.log(err);
         }

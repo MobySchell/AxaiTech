@@ -6,7 +6,9 @@ and when a user is logged in, this code indicates where to direct that user
 
 import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
-import Admin from "../admin/Admin";
+// import Firebase from '../../firebase/firebase'
+
+import AdminPortal from "../admin/AdminPortal";
 
 export default class GuardedRoute extends Component {
     render() {
@@ -24,9 +26,10 @@ export default class GuardedRoute extends Component {
                 render={(props) => {
                     if (user) {
                         if (role === "admin") {
-                            return <Admin {...{ ...props, ...rest, user }} />;
-                        } else if (user === "null") {
-                            return <Redirect to="/login" />;
+                            console.log("I'm an admin");
+                            return (
+                                <AdminPortal {...{ ...props, ...rest, user }} />
+                            );
                         }
                     } else {
                         return <Redirect to="/login" />;

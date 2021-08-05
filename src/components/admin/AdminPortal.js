@@ -1,11 +1,10 @@
-import "bootstrap/dist/css/bootstrap.css";
 import React, { Component } from "react";
 
 import firebase from "../../firebase/firebase";
-import Practitioners from "./model/Practitioners";
+import Practitioners from "./Practitioners";
 import PractitionersTable from "./PractitionersTable";
 
-export default class Admin extends Component {
+export default class AdminPortal extends Component {
     constructor(props) {
         super(props);
 

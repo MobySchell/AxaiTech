@@ -18,11 +18,11 @@ import DoctorPortalRoute from "./components/routing/DoctorPortalRoute";
 import PatientPortalRoute from "./components/routing/PatientPortalRoute";
 import AdminPortalRoute from "./components/routing/AdminPortalRoute";
 import StatusPage from "./components/StatusPage";
+import AdminPortal from "./components/admin/AdminPortal";
 
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
 import DoctorRegister from "./components/login/DoctorRegister";
 import Login from "./components/login/Login";
-import Admin from "./components/admin/Admin";
 
 class App extends Component {
     constructor(props) {
@@ -82,9 +82,7 @@ class App extends Component {
                     <div>Loading</div>
                 ) : (
                     <BrowserRouter>
-                        <div
-                            className="backgroundImage"
-                        >
+                        <div className="backgroundImage">
                             <Nav user={user} role={role} status={status} />
                             <Route path="/product" exact component={Product} />
                             <Route path="/" exact component={Home} />
@@ -136,11 +134,10 @@ class App extends Component {
                                 user={user}
                                 role={role}
                             />
-
                             <AdminPortalRoute
                                 path="/admin-portal"
                                 exact
-                                component={Admin}
+                                component={AdminPortal}
                                 user={user}
                                 role={role}
                             />
@@ -155,4 +152,3 @@ class App extends Component {
 }
 
 export default App;
-//new

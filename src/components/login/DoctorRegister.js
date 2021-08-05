@@ -5,8 +5,8 @@ export default class DoctorRegister extends Component {
     constructor(props) {
         super(props);
 
-        this.auth = firebase.auth()
-        this.db = firebase.firestore()
+        this.auth = firebase.auth();
+        this.db = firebase.firestore();
 
         this.state = {
             firstName: "",
@@ -18,7 +18,7 @@ export default class DoctorRegister extends Component {
             diagnosis: "",
             hpcsa: "",
             practiceNum: "",
-            role: "doctor"
+            role: "doctor",
         };
     }
 

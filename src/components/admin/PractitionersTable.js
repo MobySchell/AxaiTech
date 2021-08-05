@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-import ToggleSwitch from "../ToggleSwitch";
 import firebase from "../../firebase/firebase";
 
 export default class PractitionersTable extends Component {
@@ -38,6 +37,20 @@ export default class PractitionersTable extends Component {
             console.log(err);
         }
     }
+    async approvePractitioner() {
+        try {
+            await this.db
+                .collection("doctors")
+                .doc(this.state.practitioner.id)
+                .update({
+                    status: "approved",
+                });
+
+            this.setState({ practitioner: {} });
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     render() {
         const { practitioner, denyMessage } = this.state;
@@ -64,15 +77,25 @@ export default class PractitionersTable extends Component {
                                     <td>{practitioners.hpcsa}</td>
                                     <td>{practitioners.practiceNum}</td>
                                     <td>
-                                        <ToggleSwitch Name={practitioners.id} />
+                                        <button
+                                            type="button"
+                                            className="btn btn-outline-success"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#approveModal"
+                                            onClick={() => {
+                                                this.grabId(practitioners);
+                                            }}
+                                        >
+                                            Yes
+                                        </button>
                                     </td>
+
                                     <td>
                                         <button
                                             type="button"
-                                            className="btn btn-primary"
+                                            className="btn btn-outline-danger"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            // value={[practitioners.id]}
+                                            data-bs-target="#denyModal"
                                             onClick={() => {
                                                 this.grabId(practitioners);
                                             }}
@@ -87,7 +110,7 @@ export default class PractitionersTable extends Component {
                 </Table>
                 <div
                     className="modal fade"
-                    id="exampleModal"
+                    id="denyModal"
                     tabIndex="-1"
                     aria-labelledby="exampleModalLabel"
                     aria-hidden="true"
@@ -133,6 +156,52 @@ export default class PractitionersTable extends Component {
                                     className="btn btn-primary"
                                     data-bs-dismiss="modal"
                                     onClick={() => this.denyPractitioner()}
+                                >
+                                    Save changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    className="modal fade"
+                    id="approveModal"
+                    tabIndex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                >
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5
+                                    className="modal-title"
+                                    id="exampleModalLabel"
+                                >
+                                    {practitioner.firstName}
+                                </h5>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                ></button>
+                            </div>
+
+                            <div className="modal-body"></div>
+
+                            <div className="modal-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Close
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    data-bs-dismiss="modal"
+                                    onClick={() => this.approvePractitioner()}
                                 >
                                     Save changes
                                 </button>

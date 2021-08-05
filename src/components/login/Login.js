@@ -65,27 +65,22 @@ export default class Login extends Component {
             await this.getRoleStatus(this.props.user.uid);
 
             const { user, role, status } = this.state;
+
             if (user) {
                 if (role === "doctor") {
                     if (status === "approved") {
-                        console.log("role: " + role);
                         this.props.history.push("/doctor-portal");
                     } else {
-                        console.log("role: " + role);
                         this.props.history.push("/status-page");
                     }
-                } else if (role === "patient") {
-                    console.log("role: " + role);
-                    this.props.history.push("/patient-portal");
                 } else if (role === "admin") {
                     this.props.history.push("/admin-portal");
                 } else {
-                    this.props.history.push("/");
+                    this.props.history.push("/patient-portal");
                 }
             }
         } catch (err) {
             this.setState({ error: err.message });
-            console.log(err);
         }
     }
 

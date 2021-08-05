@@ -8,9 +8,6 @@ import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 
 import PatientPortal from "../PatientPortal";
-import DoctorPortal from "../DoctorPortal";
-import StatusPage from "../StatusPage";
-import Admin from "../admin/Admin";
 
 export default class GuardedRoute extends Component {
     render() {
@@ -26,28 +23,18 @@ export default class GuardedRoute extends Component {
             <Route
                 {...rest}
                 render={(props) => {
-                    if (user !== null && role === "patient") {
-                        return (
-                            <PatientPortal {...{ ...props, ...rest, user }} />
-                        );
-                    } else if (
-                        user !== null &&
-                        role === "doctor" &&
-                        status === "approved"
-                    ) {
-                        return (
-                            <DoctorPortal {...{ ...props, ...rest, user }} />
-                        );
-                    } else if (role === "doctor" && status === "pending") {
-                        return (
-                            <StatusPage
-                                {...{ ...props, ...rest, user, status }}
-                            />
-                        );
-                    } else if (role === "admin") {
-                        return <Admin />;
+                    if (user) {
+                        if (role === "patient") {
+                            return (
+                                <PatientPortal
+                                    {...{ ...props, ...rest, user }}
+                                />
+                            );
+                        } else if (role === "doctor") {
+                            return <Redirect to="/doctor-portal" />;
+                        }
                     } else {
-                        return <Redirect to="/" />;
+                        return <Redirect to="/login" />;
                     }
                 }}
             />
