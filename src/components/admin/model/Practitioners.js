@@ -3,7 +3,8 @@ export default class Practitioners {
         const practitioners = new Practitioners("");
 
         const data = doc.data();
-        practitioners.id = doc.userId;
+        practitioners.id = doc.id;
+        practitioners.userId = data.userId;
         practitioners.firstName = data.firstName;
         practitioners.surName = data.surname;
         practitioners.hpcsa = data.hpcsa;

@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import React, { Component } from "react";
 
 import firebase from "../../firebase/firebase";
-import Practitioners from "./modal/Practitioners";
+import Practitioners from "./model/Practitioners";
 import PractitionersTable from "./PractitionersTable";
 
 export default class Admin extends Component {
