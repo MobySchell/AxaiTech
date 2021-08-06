@@ -2,7 +2,8 @@
 import React, { Component } from "react";
 import firebase from "../firebase/firebase";
 import "firebase/firestore";
-import doctorprofile from "../images/doctorprofile.jpg";
+//import doctorprofile from "../images/doctorprofile.jpg";
+import AddImg from "./AddImg";
 
 export default class DoctorPortal extends Component {
     constructor(props) {
@@ -70,27 +71,24 @@ export default class DoctorPortal extends Component {
     }
 
     render() {
-        const imagestyle = {
-            width: "300px",
-            height: "300px",
-        };
+        // const imagestyle = {
+        //     width: "300px",
+        //     height: "300px",
+        // };
+        const {name, surname, status, practiceNum, hpcsa} = this.state;
         return (
             <div className="p-5">
                 <h1 className="text-center">DOCTORS PORTAL</h1>
                 <div className="card mb-3">
                     <div className="row g-0">
                         <div className="col-md-4">
-                            <img
-                                style={imagestyle}
-                                className="img-fluid img-thumbnail rounded-circle"
-                                src={doctorprofile}
-                                alt="..."
-                            />
+                            <AddImg />
+
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
                                 <h5 className="card-title">
-                                    {this.state.name} {this.state.surname}{" "}
+                                    {name} {surname}{" "}
                                 </h5>
                                 <p className="card-text text-dark">
                                     Occupation: <em>Oncologist</em>
@@ -98,15 +96,15 @@ export default class DoctorPortal extends Component {
                                 <p className="card-text text-dark">
                                     Status:{" "}
                                     <em style={{ color: "limegreen" }}>
-                                        {this.state.status}
+                                        {status}
                                     </em>
                                 </p>
                                 <p className="card-text text-dark">
                                     Practise Number:{" "}
-                                    <em>{this.state.practiceNum}</em>
+                                    <em>{practiceNum}</em>
                                 </p>
                                 <p className="card-text text-dark">
-                                    HPCSA number: <em> {this.state.hpcsa} </em>
+                                    HPCSA number: <em> {hpcsa} </em>
                                 </p>
                             </div>
                         </div>
