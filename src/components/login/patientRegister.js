@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import Firebase from "../firebase/firebase";
-
-
+import Firebase from "../../firebase/firebase";
 
 export default class PatientRegister extends Component {
   constructor(props) {
