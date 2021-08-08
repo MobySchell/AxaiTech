@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import firebase from "../firebase/firebase";
 import "firebase/firestore";
 import doctorprofile from "../images/doctorprofile.jpg";
+import PatientsTable from "./PatientsTable";
 
 export default class DoctorPortal extends Component {
     constructor(props) {
@@ -19,11 +20,13 @@ export default class DoctorPortal extends Component {
             id: "",
             hpcsa: "",
             status: "",
+            patientlist: []
         };
     }
 
     componentDidMount() {
         this.auth.onAuthStateChanged((user) => {
+            console.log("component did mount")
             this.setState({ user: user });
             if (user !== null) {
                 this.getRoleStatus(user.uid);
@@ -38,7 +41,7 @@ export default class DoctorPortal extends Component {
             .where("userId", "==", userUid)
             .get();
         snap1.forEach((doc) => {
-            console.log(doc.data().userId);
+            // console.log(doc.data().userId);
             this.setState({
                 id: doc.data().userId,
             });
@@ -52,18 +55,19 @@ export default class DoctorPortal extends Component {
                 .where("userId", "==", id)
                 .get();
             detz.forEach((doc) => {
-                console.log(doc.data());
-                console.log(doc.data().firstName);
+                // console.log(doc.data());
+                // console.log(doc.data().firstName);
                 this.setState({
                     name: doc.data().firstName,
                     surname: doc.data().surname,
                     practiceNum: doc.data().practiceNum,
                     status: doc.data().status,
                     hpcsa: doc.data().hpcsa,
+                    patientlist: doc.data().patientlist
                 });
             });
 
-            console.log("User");
+            // console.log("User");
         } catch (err) {
             console.log(err);
         }
@@ -132,6 +136,7 @@ export default class DoctorPortal extends Component {
                         </tr>
                     </tbody>
                 </table>
+                <PatientsTable patients={this.state.patientlist} />
             </div>
         );
     }
