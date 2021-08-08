@@ -12,77 +12,11 @@ export default class PatientsTable extends Component {
       }; 
 
         this.db = firebase.firestore();
+        this.auth = firebase.auth();
     }
-
-    componentDidMount() {
-      this.loopPatients(this.props.patients);
-      console.log("component did mount 2")
-      /*
-      this.auth.onAuthStateChanged((user) => {
-          this.setState({ user: user });
-          if (user !== null) {
-              this.getRoleStatus(user.uid);
-              this.getUserDetails(user.uid);
-          }
-      });
-      */
-    }
-
-    async getUserDetails(id) {
-      try {
-          const detz = await this.db
-              .collection("patients")
-              .where("userId", "==", id)
-              .get();
-          detz.forEach((doc) => {
-              // console.log(doc.data());
-              // console.log(doc.data().firstName);
-              var newStateArray = this.state.patients.slice();
-              newStateArray.push(
-                {
-                    name: doc.data().firstName,
-                    surname: doc.data().surname,
-                    age: doc.data().age,
-                    gender: doc.data().gender,
-                    diagnosis: doc.data().diagnosis,
-                }
-              );
-              this.setState(
-                {patients: newStateArray}
-              );
-
-
-                  /*
-                this.state.patients.push({
-                  name: doc.data().firstName,
-                  surname: doc.data().surname,
-                  age: doc.data().age,
-                  gender: doc.data().gender,
-                  diagnosis: doc.data().diagnosis,
-              })
-              */
-          });
-          console.log(this.state.patients)
-
-          //console.log("User");
-      } catch (err) {
-          console.log(err);
-      }
-    }
-
-    loopPatients(patients) {
-      for (var i = 0; i < patients.length; i++) {
-        // console.log(patients[i]);
-        this.getUserDetails(patients[i]);
-        //Do something
-      }
-      // patients.map((patient) => {
-      //   this.getUserDetails(patient)
-      // })
-    }
-
 
     render() {
+
         return (
             <div className="p-2">
                 <h1 className="text-center pb-5">LIST OF PATIENTS</h1>
@@ -97,11 +31,10 @@ export default class PatientsTable extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.patients.map((patients) => {
-                            // await getUserDetails(patients);
+                        {this.props.patients.map((patients) => {
 
                             return (
-                                <tr key={patients}>
+                                <tr key={patients.id}>
                                     <td>{patients.name}</td>
                                     <td>{patients.surname}</td>
                                     <td>{patients.age}</td>

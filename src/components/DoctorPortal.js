@@ -20,7 +20,8 @@ export default class DoctorPortal extends Component {
             id: "",
             hpcsa: "",
             status: "",
-            patientlist: []
+            patientlist: [],
+            patients: []
         };
     }
 
@@ -41,7 +42,6 @@ export default class DoctorPortal extends Component {
             .where("userId", "==", userUid)
             .get();
         snap1.forEach((doc) => {
-            // console.log(doc.data().userId);
             this.setState({
                 id: doc.data().userId,
             });
@@ -55,8 +55,6 @@ export default class DoctorPortal extends Component {
                 .where("userId", "==", id)
                 .get();
             detz.forEach((doc) => {
-                // console.log(doc.data());
-                // console.log(doc.data().firstName);
                 this.setState({
                     name: doc.data().firstName,
                     surname: doc.data().surname,
@@ -66,10 +64,48 @@ export default class DoctorPortal extends Component {
                     patientlist: doc.data().patientlist
                 });
             });
-
-            // console.log("User");
+            this.loopPatients(this.state.patientlist)
         } catch (err) {
             console.log(err);
+        }
+    }
+
+    async getPatientDetails(id) {
+        console.log("get patient details got fired");
+        try {
+            const detz = await this.db
+                .collection("patients")
+                .where("userId", "==", id)
+                .get();
+            detz.forEach((doc) => {
+                var newStateArray = this.state.patients.slice();
+                newStateArray.push(
+                  {
+                      id: doc.data().userId,
+                      name: doc.data().firstName,
+                      surname: doc.data().surname,
+                      age: doc.data().age,
+                      gender: doc.data().gender,
+                      diagnosis: doc.data().diagnosis,
+                  }
+                );
+                this.setState(
+                  {patients: newStateArray}
+                );
+            });
+            console.log(this.state.patients)
+        } catch (err) {
+            console.log(err);
+        }
+      }
+  
+    loopPatients() {
+        console.log("loop patients got fired");
+        const patients = this.state.patientlist;
+        console.log(patients);
+        for (var i = 0; i < patients.length; i++) {
+            this.getPatientDetails(patients[i]);
+            console.log(patients[i]);
         }
     }
 
@@ -136,7 +172,8 @@ export default class DoctorPortal extends Component {
                         </tr>
                     </tbody>
                 </table>
-                <PatientsTable patients={this.state.patientlist} />
+                
+                <PatientsTable patients={this.state.patients} />
             </div>
         );
     }
