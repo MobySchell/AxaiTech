@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import firebase from '../firebase/firebase';
 import 'firebase/firestore'
+import { Link } from "react-router-dom";
 
 export default class DoctorPortal extends Component {
   constructor(props){
@@ -127,8 +128,8 @@ export default class DoctorPortal extends Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <th>1</th>
-                            <td>Mark Shoeman</td>
+                            <th>1</th>  
+                            <td>  <th><Link to="/Test" className="btn btn-primary px-5 py-2">Mark Shoeman</Link></th></td>
                             <td>25/06/2021</td>
                             <td>Ready</td>
                             <td>Download</td>
