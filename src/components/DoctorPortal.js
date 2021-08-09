@@ -2,8 +2,9 @@
 import React, { Component } from "react";
 import firebase from "../firebase/firebase";
 import "firebase/firestore";
-//import doctorprofile from "../images/doctorprofile.jpg";
-import AddImg from "./AddImg";
+//import doctorprofile from "../
+import Node from "./NodeBox";
+import AddImg from "../components/AddImg";
 
 export default class DoctorPortal extends Component {
     constructor(props) {
@@ -39,7 +40,6 @@ export default class DoctorPortal extends Component {
             .where("userId", "==", userUid)
             .get();
         snap1.forEach((doc) => {
-            console.log(doc.data().userId);
             this.setState({
                 id: doc.data().userId,
             });
@@ -53,8 +53,6 @@ export default class DoctorPortal extends Component {
                 .where("userId", "==", id)
                 .get();
             detz.forEach((doc) => {
-                console.log(doc.data());
-                console.log(doc.data().firstName);
                 this.setState({
                     name: doc.data().firstName,
                     surname: doc.data().surname,
@@ -126,7 +124,12 @@ export default class DoctorPortal extends Component {
                             <td>Mark Shoeman</td>
                             <td>25/06/2021</td>
                             <td>Ready</td>
-                            <td>Download</td>
+                            <td>
+                                <button className="btn btn-danger">
+                                    <Node />
+                                    send
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
