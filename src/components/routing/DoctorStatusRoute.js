@@ -18,7 +18,7 @@ export default class GuardedRoute extends Component {
 
           if (user) {
             if (role === 'doctor') {
-              if (status === 'pending') {
+              if (status === 'pending' || status === 'denied') {
                 return <StatusPage {...{ ...props, ...rest, user, status}} />
               } else {
                 return <Redirect to="/login" />;

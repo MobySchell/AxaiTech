@@ -152,6 +152,8 @@ export default class DoctorPortal extends Component {
                         </div>
                     </div>
                 </div>
+
+                {/*
                 <table className="table mt-2 bg-light">
                     <thead>
                         <tr>
@@ -172,7 +174,7 @@ export default class DoctorPortal extends Component {
                         </tr>
                     </tbody>
                 </table>
-                
+                */}
                 <PatientsTable patients={this.state.patients} />
             </div>
         );

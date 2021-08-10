@@ -19,8 +19,8 @@ export default class PatientsTable extends Component {
 
         return (
             <div className="p-2">
-                <h1 className="text-center pb-5">LIST OF PATIENTS</h1>
-                <Table striped bordered hover variant="dark">
+                <h1 className="text-center pb-5">List of Patients</h1>
+                <Table striped bordered hover variant="light">
                     <thead>
                         <tr>
                             <th>First Name</th>
