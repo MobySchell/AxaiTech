@@ -1,4 +1,3 @@
-import { file } from '@babel/types';
 import React, { Component } from 'react'
 import 'react-bootstrap-icons'
 import firebase from '../firebase/firebase';
@@ -42,8 +41,8 @@ export default class AddImg extends Component {
   render() {
     const { fileDisplay } = this.state;
     const imagestyle = {
-      width: "300px",
-      height: "300px",
+      width: "200px",
+      height: "200px",
     };
     return (
       <div>

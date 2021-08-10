@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import firebase from "../firebase/firebase";
 import "firebase/firestore";
 //import doctorprofile from "../
-import Node from "./NodeBox";
 import AddImg from "../components/AddImg";
+import AddPatient from "./AddPatient";
 
 export default class DoctorPortal extends Component {
     constructor(props) {
@@ -21,6 +21,7 @@ export default class DoctorPortal extends Component {
             id: "",
             hpcsa: "",
             status: "",
+            report: "https://firebasestorage.googleapis.com/v0/b/axai-tech.appspot.com/o/reports%2FAxaitech_Med_v2.pdf?alt=media&token=7c03a722-994c-4226-ba2c-d879a03e47f7"
         };
     }
 
@@ -68,12 +69,12 @@ export default class DoctorPortal extends Component {
         }
     }
 
+    showReport() {
+
+    }
+
     render() {
-        // const imagestyle = {
-        //     width: "300px",
-        //     height: "300px",
-        // };
-        const {name, surname, status, practiceNum, hpcsa} = this.state;
+        const {name, surname, status, practiceNum, hpcsa, report} = this.state;
         return (
             <div className="p-5">
                 <h1 className="text-center">DOCTORS PORTAL</h1>
@@ -109,29 +110,68 @@ export default class DoctorPortal extends Component {
                     </div>
                 </div>
                 <table className="table mt-2 bg-light">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Patient name</th>
-                            <th>Date exmained</th>
-                            <th>Test results</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Mark Shoeman</td>
-                            <td>25/06/2021</td>
-                            <td>Ready</td>
-                            <td>
-                                <button className="btn btn-danger">
-                                    <Node />
-                                    send
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
+                  <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>Patient name</th>
+                          <th>Date exmained</th>
+                          <th>Test results</th>
+                          <th>                              
+                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              Add Patient
+                            </button>
+
+                            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div className="modal-dialog">
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">Doctor</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div className="modal-body">
+                                    <AddPatient />
+                                  </div>
+                                  <div className="modal-footer">
+                                    {/* <button type="button" className="btn btn-primary">Send report</button> */}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>1</th>
+                      <td>Beverly Hangman</td>
+                      <td>25/06/2021</td>
+                      <td>Ready</td>
+                      <td className="d-flex justify-content-end">
+                        <a target="_blank" href= { report} rel="noreferrer">
+                          <button type="button" className="btn btn-success m-1">View</button>
+                        </a>
+                        <button type="button" className="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#exampleModal2">Share
+                        </button>
+                        <div className="modal fade" id="exampleModal2" aria-hidden="true">
+                          <div className="modal-dialog">
+                            <div className="modal-content">
+                              <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Doctor</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div className="modal-body">
+                                <AddPatient />
+                                
+                              </div>
+                              <div className="modal-footer">
+                                {/* <button type="button" className="btn btn-primary">Send report</button> */}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
             </div>
         );
