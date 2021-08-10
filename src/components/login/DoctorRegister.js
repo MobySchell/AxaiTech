@@ -19,6 +19,7 @@ export default class DoctorRegister extends Component {
             hpcsa: "",
             practiceNum: "",
             role: "doctor",
+            error: "",
         };
     }
 
@@ -54,6 +55,7 @@ export default class DoctorRegister extends Component {
     }
 
     render() {
+        const { error } = this.state;
         return (
             <div className="container col-7 mt-2">
                 <div className="p-5"></div>
@@ -146,6 +148,14 @@ export default class DoctorRegister extends Component {
                                 Register
                             </button>
                         </div>
+
+                        {error ? (
+                            <div class="alert alert-danger mt-5" role="alert">
+                                {error}
+                            </div>
+                        ) : (
+                            <div></div>
+                        )}
                     </form>
                 </div>
                 <div className="p-5"></div>

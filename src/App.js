@@ -22,6 +22,7 @@ import AdminPortal from "./components/admin/AdminPortal";
 
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
 import DoctorRegister from "./components/login/DoctorRegister";
+import PatientRegister from "./components/login/patientRegister";
 import Login from "./components/login/Login";
 
 class App extends Component {
@@ -92,6 +93,11 @@ class App extends Component {
                                 path="/doctorRegister"
                                 exact
                                 component={DoctorRegister}
+                            />
+                            <Route
+                                path="/patientRegister"
+                                exact
+                                component={PatientRegister}
                             />
                             <Route
                                 path="/differentiatorRegister"
