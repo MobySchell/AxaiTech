@@ -24,16 +24,20 @@ export default class DoctorPortal extends Component {
             report: "https://firebasestorage.googleapis.com/v0/b/axai-tech.appspot.com/o/reports%2FAxaitech_Med_v2.pdf?alt=media&token=7c03a722-994c-4226-ba2c-d879a03e47f7"
         };
     }
+  
+  componentDidMount() {
+    this.auth.onAuthStateChanged((user) => {
+      this.setState({ user: user });
+      if (user !== null) {
+        this.getRoleStatus(user.uid);
+        this.getUserDetails(user.uid);
+      }
+    });
+  }
 
-    componentDidMount() {
-        this.auth.onAuthStateChanged((user) => {
-            this.setState({ user: user });
-            if (user !== null) {
-                this.getRoleStatus(user.uid);
-                this.getUserDetails(user.uid);
-            }
-        });
-    }
+ 
+
+  
 
     async getRoleStatus(userUid) {
         const snap1 = await this.db
@@ -67,6 +71,7 @@ export default class DoctorPortal extends Component {
         } catch (err) {
             console.log(err);
         }
+      
     }
 
     showReport() {

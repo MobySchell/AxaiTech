@@ -38,12 +38,12 @@ app.get('/send-email', (req, res) =>{
 
     if (error.response) {
       // Extract error msg
-      const {message, code, response} = error;
+      //const {message, code, response} = error;
 
       // Extract response msg
-      const {headers, body} = response;
+      //const {headers, body} = response;
 
-      console.error(body);
+      //console.error(body);
     }
   });
 

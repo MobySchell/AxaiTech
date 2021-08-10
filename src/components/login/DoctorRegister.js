@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import firebase from "../../firebase/firebase";
+import axios from "axios";
 
 export default class DoctorRegister extends Component {
     constructor(props) {
         super(props);
 
-        this.auth = firebase.auth()
-        this.db = firebase.firestore()
+        this.auth = firebase.auth();
+        this.db = firebase.firestore();
 
         this.state = {
             firstName: "",
@@ -18,7 +19,7 @@ export default class DoctorRegister extends Component {
             diagnosis: "",
             hpcsa: "",
             practiceNum: "",
-            role: "doctor"
+            role: "doctor",
         };
     }
 
@@ -43,23 +44,61 @@ export default class DoctorRegister extends Component {
                     surname: this.state.surname,
                     hpcsa: this.state.hpcsa,
                     practiceNum: this.state.practiceNum,
-                    status: "pending", // change pending
+                    status: "pending",
                 });
             }
 
             this.props.history.push("/status-page");
-            // this.props.history.push('/');
         } catch (err) {
             this.setState({ error: err.message });
         }
     }
+
+    handleSubmit(e) {
+        this.register(e);
+        e.preventDefault();
+       // const firstName = document.getElementById("name").value;
+       // const email = document.getElementById("email").value;
+       // const hpcsa = document.getElementById("hpcsa").value;
+
+       const firstName = this.state.firstName;
+       const email = this.state.email;
+       const hpcsa = this.state.hpcsa;
+     
+     
+     
+        axios({
+          method: "POST",
+          url: "http://localhost:3000/doctorregister",
+          data: {
+            name : firstName,
+            email: email,
+            hpcsa: hpcsa,
+          },
+        }).then((response) => {
+          if (response.data.msg === "success") {
+            alert("Message Sent.");
+            this.resetForm();
+          } else if (response.data.msg === "fail") {
+            alert("Message failed to send.");
+          }
+        });
+      }
+     
+     
+     
+      resetForm() {
+        document.getElementById("registerForm").reset();
+      }
+     
+     
 
     render() {
         return (
             <div className="container col-7 mt-2">
                 <div className="p-5"></div>
                 <div className="card card-body text-center">
-                    <form onSubmit={(e) => this.register(e)}>
+                    <form id="registerForm" onSubmit={(e) => this.handleSubmit(e)}>
                         <h1 className="h3 mt-3 text-center">Please Register</h1>
                         <div className="p-3 body">
                             <input
@@ -72,6 +111,7 @@ export default class DoctorRegister extends Component {
                                 type="text"
                                 className="form-control"
                                 placeholder="First Name"
+                                id= "name"
                             />
                         </div>
                         <div className="p-3 body">
@@ -113,47 +153,6 @@ export default class DoctorRegister extends Component {
                                 placeholder="Password"
                             />
                         </div>
-                        {/*
-                        <div className="p-3 body">
-                            <input
-                                value={this.state.age}
-                                onChange={(e) =>
-                                    this.setState({
-                                        age: e.target.value,
-                                    })
-                                }
-                                type="number"
-                                className="form-control"
-                                placeholder="Age"
-                            />
-                        </div>
-                        <div className="p-3 body">
-                            <input
-                                value={this.state.gender}
-                                onChange={(e) =>
-                                    this.setState({
-                                        gender: e.target.value,
-                                    })
-                                }
-                                type="text"
-                                className="form-control"
-                                placeholder="Gender"
-                            />
-                        </div>
-                        <div className="p-3 body">
-                            <input
-                                value={this.state.diagnosis}
-                                onChange={(e) =>
-                                    this.setState({
-                                        diagnosis: e.target.value,
-                                    })
-                                }
-                                type="text"
-                                className="form-control"
-                                placeholder="Primary Diagnosis"
-                            />
-                        </div>
-                            */}
                         <div className="p-3 body">
                             <input
                                 value={this.state.hpcsa}

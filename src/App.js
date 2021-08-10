@@ -11,22 +11,19 @@ import Contact from "./components/Contact";
 import Home from "./components/Home";
 import DoctorPortal from "./components/DoctorPortal";
 import PatientPortal from "./components/PatientPortal";
-// import background from './images/option7.jpg';
 import firebase from "./firebase/firebase";
-import register from "./components/login/register";
 import PropsRoute from "./components/routing/PropsRoute";
-import GuardedRoute from "./components/routing/GuardedRoute";
 import DoctorStatusRoute from "./components/routing/DoctorStatusRoute";
 import DoctorPortalRoute from "./components/routing/DoctorPortalRoute";
 import PatientPortalRoute from "./components/routing/PatientPortalRoute";
 import AdminPortalRoute from "./components/routing/AdminPortalRoute";
 import StatusPage from "./components/StatusPage";
-import AdminPortal from "./components/AdminPortal";
+import AdminPortal from "./components/admin/AdminPortal";
+import TestForm from "./components/TestForm";
 
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
 import DoctorRegister from "./components/login/DoctorRegister";
 import Login from "./components/login/Login";
-import Admin from "./components/admin/Admin";
 
 class App extends Component {
     constructor(props) {
@@ -86,33 +83,22 @@ class App extends Component {
                     <div>Loading</div>
                 ) : (
                     <BrowserRouter>
-                        <div
-                            className="backgroundImage"
-                            // style={{ backgroundImage: `url(${background}`}}
-                        >
+                        <div className="backgroundImage">
                             <Nav user={user} role={role} status={status} />
                             <Route path="/product" exact component={Product} />
                             <Route path="/" exact component={Home} />
                             <Route path="/about" exact component={About} />
 
-                            {/* Testing */}
-                            <Route path="/loginEdit" exact component={Login} />
                             <Route
                                 path="/doctorRegister"
                                 exact
                                 component={DoctorRegister}
                             />
                             <Route
-                                path="/registerEdit"
-                                exact
-                                component={register}
-                            />
-                            <Route
                                 path="/differentiatorRegister"
                                 exact
                                 component={DifferentiatorRegister}
                             />
-                            {/*  */}
 
                             <Route
                                 path="/resources"
@@ -123,12 +109,6 @@ class App extends Component {
                                 path="/login"
                                 exact
                                 component={Login}
-                                user={user}
-                            />
-                            <PropsRoute
-                                path="/register"
-                                exact
-                                component={register}
                                 user={user}
                             />
 
@@ -148,17 +128,17 @@ class App extends Component {
                                 role={role}
                                 status={status}
                             />
+
+                            <Route
+                                path="/Test"
+                                exact
+                                component={TestForm}
+                            />
+                            
                             <PatientPortalRoute
                                 path="/patient-portal"
                                 exact
                                 component={PatientPortal}
-                                user={user}
-                                role={role}
-                            />
-                            <GuardedRoute
-                                path="/admin"
-                                exact
-                                component={Admin}
                                 user={user}
                                 role={role}
                             />
@@ -180,4 +160,3 @@ class App extends Component {
 }
 
 export default App;
-//new
