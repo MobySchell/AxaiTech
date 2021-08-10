@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 export default class TestForm extends Component {
     render() {
         return (
-         <div className="container col-7 mt-2">
-        <div className="p-5"></div>
-        <div className="card card-body text-center">
+          <div className="container col-7 mt-2">
+          <div className="p-5"></div>
+          <div className="card card-body text-center">
          <form>
         <h1 className="h3 mt-3 text-center">Patient Test Form</h1>
 
@@ -15,7 +15,7 @@ export default class TestForm extends Component {
             type="text"
             className="form-control"
             id="formGroupExampleInput"
-            placeholder="Name"
+            placeholder="Mark Shoeman"
           />
         </div>
 
@@ -25,7 +25,7 @@ export default class TestForm extends Component {
             type="email"
             className="form-control"
             id="formGroupExampleInput2"
-            placeholder="Email"
+            placeholder="MarkShoeman@gmail.com"
           />
         </div>
 

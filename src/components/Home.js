@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import report from "../images/report.jpg";
-import "./Home.css";
+import "../components/component styles/Home.css";
 
 export default class Home extends Component {
   render() {

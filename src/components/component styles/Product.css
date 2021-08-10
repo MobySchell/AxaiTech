@@ -15,7 +15,7 @@ p {
 }
 
 .background-image {
-    background-image: url('../images/vials2.jpg');
+    background-image: url('../../images/vials2.jpg');
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;

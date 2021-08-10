@@ -25,7 +25,7 @@ const transport = nodemailer.createTransport({
 
 
 
-router.post("/register", (req, res) => {
+router.post("/doctorregister", (req, res) => {
   console.log("register was here")
   const name = req.body.name;
   const email = req.body.email;
