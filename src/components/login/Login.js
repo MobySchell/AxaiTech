@@ -6,7 +6,6 @@ this code is for the login page on the website and handles the login of all user
 import React, { Component } from "react";
 import "./styles.css";
 import Firebase from "../../firebase/firebase";
-import ShowIf from "../ShowIf";
 
 export default class Login extends Component {
     constructor(props) {
@@ -120,11 +119,6 @@ export default class Login extends Component {
                                 placeholder="Password"
                             />
                         </div>
-                        <ShowIf isTrue={error}>
-                            <div className="alert alert-danger mt-4">
-                                {error}
-                            </div>
-                        </ShowIf>
                         <div className="text-center mt-4">
                             <button
                                 className="btn btn-primary px-5 body"
@@ -133,9 +127,15 @@ export default class Login extends Component {
                                 Login
                             </button>
                         </div>
+                        {error ? (
+                            <div class="alert alert-danger mt-5" role="alert">
+                                {error}
+                            </div>
+                        ) : (
+                            <div></div>
+                        )}
                     </form>
                 </div>
-
                 <div className="p-5"></div>
             </div>
         );

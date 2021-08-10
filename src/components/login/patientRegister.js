@@ -38,7 +38,9 @@ export default class PatientRegister extends Component {
                 Email: PatientRegister.Email,
             });
             console.log(docRef.id);
-        } catch (err) {}
+        } catch (err) {
+            this.setState({ error: err.message });
+        }
     }
 
     render() {
