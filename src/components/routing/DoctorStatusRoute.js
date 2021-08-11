@@ -6,6 +6,7 @@ and when a user is logged in, this code indicates where to direct that user
 
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import DoctorPortal from '../DoctorPortal';
 
 import StatusPage from '../StatusPage'
 
@@ -20,6 +21,8 @@ export default class GuardedRoute extends Component {
             if (role === 'doctor') {
               if (status === 'pending' || status === 'denied') {
                 return <StatusPage {...{ ...props, ...rest, user, status}} />
+              } else if (status === 'approved') {
+                return <DoctorPortal {...{ ...props, ...rest, user, status}} />
               } else {
                 return <Redirect to="/login" />;
               }

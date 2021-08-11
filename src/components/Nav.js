@@ -18,12 +18,13 @@ export default class Nav extends Component {
         this.auth = firebase.auth();
     }
 
-    async logout() {
+    async logout(e) {
         try {
             await this.auth.signOut();
-            this.props.role = "";
-            this.props.status = "";
+            // this.props.role = "";
+            // this.props.status = "";
             this.props.history.push("/");
+            console.log("logout gets fired")
         } catch (err) {
             console.log(err);
         }
@@ -71,7 +72,7 @@ export default class Nav extends Component {
             return;
         }
         return (
-            <div onClick={() => this.logout()} className="btn btn-primary">
+            <div onClick={(e) => this.logout(e)} className="btn btn-primary">
                 Logout
             </div>
         );

@@ -175,7 +175,7 @@ export default class DoctorPortal extends Component {
                     </tbody>
                 </table>
                 */}
-                <PatientsTable patients={this.state.patients} />
+                <PatientsTable patients={this.state.patients} doctor={this.state.id}/>
             </div>
         );
     }
