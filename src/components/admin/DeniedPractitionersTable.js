@@ -28,7 +28,7 @@ export default class DeniedPractitionersTable extends Component {
 
             await this.db
                 .collection("user-roles")
-                .doc(this.state.practitioner.userId)
+                .doc()
                 .where("userId", "==", this.state.practitioner.userId)
                 .delete();
 
