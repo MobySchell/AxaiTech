@@ -17,13 +17,14 @@ import DoctorStatusRoute from "./components/routing/DoctorStatusRoute";
 import DoctorPortalRoute from "./components/routing/DoctorPortalRoute";
 import PatientPortalRoute from "./components/routing/PatientPortalRoute";
 import AdminPortalRoute from "./components/routing/AdminPortalRoute";
+import TestRoute from "./components/routing/TestRoute";
 import StatusPage from "./components/StatusPage";
 import AdminPortal from "./components/admin/AdminPortal";
 import TestForm from "./components/TestForm";
 
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
 import DoctorRegister from "./components/login/DoctorRegister";
-import PatientRegister from "./components/login/patientRegister";
+import PatientRegister from "./components/login/PatientRegister";
 import Login from "./components/login/Login";
 
 class App extends Component {
@@ -91,10 +92,17 @@ class App extends Component {
                             <Route path="/about" exact component={About} />
 
                             <Route
-                                path="/doctorRegister"
+                                path="/doctor-register"
                                 exact
                                 component={DoctorRegister}
                             />
+
+                            <Route
+                                path="/patient-register"
+                                exact
+                                component={PatientRegister}
+                            />
+
                             <Route
                                 path="/patientRegister"
                                 exact
@@ -111,6 +119,13 @@ class App extends Component {
                                 exact
                                 component={Resources}
                             />
+
+                            <Route
+                                path="/request-test"
+                                exact
+                                component={TestForm}
+                            />
+
                             <PropsRoute
                                 path="/login"
                                 exact
@@ -135,12 +150,8 @@ class App extends Component {
                                 status={status}
                             />
 
-                            <Route
-                                path="/Test"
-                                exact
-                                component={TestForm}
-                            />
-                            
+                            <Route path="/Test" exact component={TestForm} />
+
                             <PatientPortalRoute
                                 path="/patient-portal"
                                 exact
