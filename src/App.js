@@ -19,6 +19,7 @@ import PatientPortalRoute from "./components/routing/PatientPortalRoute";
 import AdminPortalRoute from "./components/routing/AdminPortalRoute";
 import StatusPage from "./components/StatusPage";
 import AdminPortal from "./components/admin/AdminPortal";
+import TestForm from "./components/TestForm";
 
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
 import DoctorRegister from "./components/login/DoctorRegister";
@@ -133,6 +134,13 @@ class App extends Component {
                                 role={role}
                                 status={status}
                             />
+
+                            <Route
+                                path="/Test"
+                                exact
+                                component={TestForm}
+                            />
+                            
                             <PatientPortalRoute
                                 path="/patient-portal"
                                 exact
