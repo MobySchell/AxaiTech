@@ -21,7 +21,7 @@ export default class DoctorPortal extends Component {
             id: "",
             hpcsa: "",
             status: "",
-            report: "https://firebasestorage.googleapis.com/v0/b/axai-tech.appspot.com/o/reports%2FAxaitech_Med_v2.pdf?alt=media&token=7c03a722-994c-4226-ba2c-d879a03e47f7"
+            report: "https://firebasestorage.googleapis.com/v0/b/axai-tech.appspot.com/o/reports%2FAxaitech_Med_v2.pdf?alt=media&token=0def6eaa-6a51-49c5-a28b-d3b04e2fd133"
         };
     }
   
@@ -64,6 +64,7 @@ export default class DoctorPortal extends Component {
                     practiceNum: doc.data().practiceNum,
                     status: doc.data().status,
                     hpcsa: doc.data().hpcsa,
+                    userId: doc.data().userId
                 });
             });
 
@@ -126,7 +127,7 @@ export default class DoctorPortal extends Component {
                               Add Patient
                             </button>
 
-                            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div className="modal-dialog">
                                 <div className="modal-content">
                                   <div className="modal-header">
