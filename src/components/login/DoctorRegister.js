@@ -41,6 +41,7 @@ export default class DoctorRegister extends Component {
             if (this.state.role === "doctor") {
                 await this.db.collection("doctors").doc().set({
                     userId: this.auth.currentUser.uid,
+                    email: this.state.email,
                     firstName: this.state.firstName,
                     surname: this.state.surname,
                     hpcsa: this.state.hpcsa,
