@@ -55,9 +55,9 @@ export default class PatientPortal extends Component {
                 .collection("tests")
                 .where("patientId", "==", id)
                 .get();
-            var patientTests = []
+            var patientTests = [];
             tests.forEach((doc) => {
-                patientTests.push(doc.data())
+                patientTests.push(doc.data());
             });
             detz.forEach((doc) => {
                 console.log(doc.data());
@@ -68,7 +68,7 @@ export default class PatientPortal extends Component {
                     age: doc.data().age,
                     gender: doc.data().gender,
                     diagnosis: doc.data().diagnosis,
-                    tests: patientTests
+                    tests: patientTests,
                 });
             });
 
@@ -102,15 +102,14 @@ export default class PatientPortal extends Component {
                                     {this.state.name} {this.state.surname}{" "}
                                 </h5>
                                 <p className="card-text text-dark">
-                                    Doctor/Oncologist: <em>Dr. Joshua Schell</em>
+                                    Doctor/Oncologist:{" "}
+                                    <em>Dr. Joshua Schell</em>
                                 </p>
                                 <p className="card-text text-dark">
-                                    Age:{" "}
-                                    <em> {this.state.age} </em>
+                                    Age: <em> {this.state.age} </em>
                                 </p>
                                 <p className="card-text text-dark">
-                                    Gender:{" "}
-                                    <em>{this.state.gender}</em>
+                                    Gender: <em>{this.state.gender}</em>
                                 </p>
                                 <p className="card-text text-dark">
                                     Diagnosis: <em> {this.state.diagnosis} </em>
@@ -120,34 +119,33 @@ export default class PatientPortal extends Component {
                     </div>
                 </div>
                 <Table>
-                                            <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Test Type</th>
-                                                <th>Date Requested</th>
-                                                <th>Status</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {this.state.tests.map((test, index) => {
-                                                var date = test.requestDate.toDate()
-                                                date = date.toString();
-                                                return (
-                                                    <tr>
-                                                        <th></th>
-                                                        <td>{test.diagnosis}</td>
-                                                        <td>{date}</td>
-                                                        <td>{test.status}</td>
-                                                    </tr>
-                                                );
-                                            })}
-                                            </tbody>
-                                            </Table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Test Type</th>
+                            <th>Date Requested</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.tests.map((test, index) => {
+                            var date = test.requestDate.toDate();
+                            date = date.toString();
+                            return (
+                                <tr>
+                                    <th></th>
+                                    <td>{test.diagnosis}</td>
+                                    <td>{date}</td>
+                                    <td>{test.status}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </Table>
             </div>
         );
     }
 }
-
 
 /*
 export default class PatientPortal extends Component {
@@ -181,7 +179,7 @@ export default class PatientPortal extends Component {
                                 Documentation
                             </p>
 
-                            Progress: 
+                            Progress:
                             <div class="progress">
 
                                 <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{width: this.state.width}}></div>
