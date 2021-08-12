@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table, Accordion, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-import firebase from "../firebase/firebase"
+import firebase from "../firebase/firebase";
 import { Link } from "react-router-dom";
 
 export default class PatientsTable extends Component {
@@ -9,15 +9,14 @@ export default class PatientsTable extends Component {
         super(props);
 
         this.state = {
-          patients: []
-      }; 
+            patients: [],
+        };
 
         this.db = firebase.firestore();
         this.auth = firebase.auth();
     }
 
     render() {
-
         return (
             <div className="p-2">
                 <h1 className="text-center pb-5">List of Patients</h1>
@@ -34,34 +33,40 @@ export default class PatientsTable extends Component {
                     </thead>
                     <tbody>
                         {this.props.patients.map((patients) => {
-
                             return (
-                            
                                 <div>
                                     <Accordion>
                                         <Card>
                                             <Card.Header>
-                                                <Accordion.Toggle as={Card.Header} eventKey="0">
+                                                <Accordion.Toggle
+                                                    as={Card.Header}
+                                                    eventKey="0"
+                                                >
                                                     <tr key={patients.id}>
                                                         <td>{patients.name}</td>
-                                                        <td>{patients.surname}</td>
+                                                        <td>
+                                                            {patients.surname}
+                                                        </td>
                                                         <td>{patients.age}</td>
-                                                        <td>{patients.gender}</td> 
-                                                        <td>{patients.diagnosis}</td> 
+                                                        <td>
+                                                            {patients.gender}
+                                                        </td>
+                                                        <td>
+                                                            {patients.diagnosis}
+                                                        </td>
                                                     </tr>
                                                 </Accordion.Toggle>
                                             </Card.Header>
                                             <Accordion.Collapse eventKey="0">
-                                                <Card.Body>This is first tab body</Card.Body>
+                                                <Card.Body>
+                                                    This is first tab body
+                                                </Card.Body>
                                             </Accordion.Collapse>
                                         </Card>
                                     </Accordion>
                                 </div>
-                            
 
-
-      
-/*
+                                /*
 <div class="accordion" id="accordionExample">
     <div class="accordion-item">
         <h2 class="accordion-header" id={patients.id}>

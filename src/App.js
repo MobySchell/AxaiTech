@@ -17,14 +17,14 @@ import DoctorStatusRoute from "./components/routing/DoctorStatusRoute";
 import DoctorPortalRoute from "./components/routing/DoctorPortalRoute";
 import PatientPortalRoute from "./components/routing/PatientPortalRoute";
 import AdminPortalRoute from "./components/routing/AdminPortalRoute";
-import TestRoute from "./components/routing/TestRoute"
+import TestRoute from "./components/routing/TestRoute";
 import StatusPage from "./components/StatusPage";
 import AdminPortal from "./components/admin/AdminPortal";
 import TestForm from "./components/TestForm";
 
 import DifferentiatorRegister from "./components/login/DifferentiatorRegister";
 import DoctorRegister from "./components/login/DoctorRegister";
-import PatientRegister from "./components/login/PatientRegister";
+import PatientRegister from "./components/login/patientRegister";
 import Login from "./components/login/Login";
 
 class App extends Component {
@@ -97,7 +97,6 @@ class App extends Component {
                                 component={DoctorRegister}
                             />
 
-
                             <Route
                                 path="/patient-register"
                                 exact
@@ -146,7 +145,6 @@ class App extends Component {
                                 status={status}
                             />
 
-                            
                             <PatientPortalRoute
                                 path="/patient-portal"
                                 exact
