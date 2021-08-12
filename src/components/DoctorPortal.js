@@ -77,6 +77,14 @@ export default class DoctorPortal extends Component {
                 .collection("patients")
                 .where("userId", "==", id)
                 .get();
+            const tests = await this.db
+                .collection("tests")
+                .where("patientId", "==", id)
+                .get();
+            var patientTests = []
+            tests.forEach((doc) => {
+                patientTests.push(doc.data())
+            });
             detz.forEach((doc) => {
                 var newStateArray = this.state.patients.slice();
                 newStateArray.push(
@@ -87,6 +95,7 @@ export default class DoctorPortal extends Component {
                       age: doc.data().age,
                       gender: doc.data().gender,
                       diagnosis: doc.data().diagnosis,
+                      tests: patientTests
                   }
                 );
                 this.setState(
