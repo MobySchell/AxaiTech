@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import firebase from "../firebase/firebase";
 import "firebase/firestore";
 import doctorprofile from "../images/doctorprofile.jpg";
+import { Table } from "react-bootstrap";
 
 export default class PatientPortal extends Component {
     constructor(props) {
@@ -50,6 +51,14 @@ export default class PatientPortal extends Component {
                 .collection("patients")
                 .where("userId", "==", id)
                 .get();
+            const tests = await this.db
+                .collection("tests")
+                .where("patientId", "==", id)
+                .get();
+            var patientTests = []
+            tests.forEach((doc) => {
+                patientTests.push(doc.data())
+            });
             detz.forEach((doc) => {
                 console.log(doc.data());
                 console.log(doc.data().firstName);
@@ -59,6 +68,7 @@ export default class PatientPortal extends Component {
                     age: doc.data().age,
                     gender: doc.data().gender,
                     diagnosis: doc.data().diagnosis,
+                    tests: patientTests
                 });
             });
 
@@ -109,26 +119,30 @@ export default class PatientPortal extends Component {
                         </div>
                     </div>
                 </div>
-                <table className="table mt-2 bg-light">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Test</th>
-                            <th>Date Requested</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>CA 19-9 (Prostate Cancer)</td>
-                            <td>25/06/2021</td>
-                            <td>In Progress</td>
-                            <td>Download</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <Table>
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Test Type</th>
+                                                <th>Date Requested</th>
+                                                <th>Status</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {this.state.tests.map((test, index) => {
+                                                var date = test.requestDate.toDate()
+                                                date = date.toString();
+                                                return (
+                                                    <tr>
+                                                        <th></th>
+                                                        <td>{test.diagnosis}</td>
+                                                        <td>{date}</td>
+                                                        <td>{test.status}</td>
+                                                    </tr>
+                                                );
+                                            })}
+                                            </tbody>
+                                            </Table>
             </div>
         );
     }
