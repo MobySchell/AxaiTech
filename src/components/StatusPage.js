@@ -68,6 +68,10 @@ export default class DoctorPortal extends Component {
         }
     }
 
+    routeHome() {
+        this.props.history.push("/");
+    }
+
     render() {
         return (
             //TODO: fill this page according to instructions from AxaiTech
@@ -96,11 +100,16 @@ export default class DoctorPortal extends Component {
                                 {this.state.status}
                             </em>
                         </p>
-                        <Button variant="primary">Go to Home</Button>
+                        <Button
+                            variant="primary"
+                            onClick={() => this.routeHome()}
+                        >
+                            Go to Home
+                        </Button>
                     </Card.Body>
-                    <Card.Footer className="text-muted">
+                    {/* <Card.Footer className="text-muted">
                         Last Updated: 2 days ago
-                    </Card.Footer>
+                    </Card.Footer> */}
                 </Card>
             </div>
         );
