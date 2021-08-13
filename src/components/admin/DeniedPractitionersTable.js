@@ -123,8 +123,6 @@ export default class DeniedPractitionersTable extends Component {
                                     ></button>
                                 </div>
 
-                                {/* <div className="modal-body container">Test</div> */}
-
                                 <div className="modal-footer">
                                     <button
                                         type="button"
