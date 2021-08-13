@@ -7,7 +7,6 @@ import Nav from "./components/Nav";
 import Product from "./components/Product";
 import Resources from "./components/Resources";
 import About from "./components/About";
-import Contact from "./components/Contact";
 import Home from "./components/Home";
 import DoctorPortal from "./components/DoctorPortal";
 import PatientPortal from "./components/PatientPortal";
@@ -103,11 +102,6 @@ class App extends Component {
                             />
 
                             <Route
-                                path="/patientRegister"
-                                exact
-                                component={PatientRegister}
-                            />
-                            <Route
                                 path="/differentiatorRegister"
                                 exact
                                 component={DifferentiatorRegister}
@@ -149,8 +143,6 @@ class App extends Component {
                                 status={status}
                             />
 
-                            <Route path="/Test" exact component={TestForm} />
-
                             <PatientPortalRoute
                                 path="/patient-portal"
                                 exact
@@ -165,8 +157,6 @@ class App extends Component {
                                 user={user}
                                 role={role}
                             />
-
-                            <Contact />
                         </div>
                     </BrowserRouter>
                 )}

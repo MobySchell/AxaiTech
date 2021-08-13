@@ -5,6 +5,7 @@ export default class DeniedPractitioners {
         const data = doc.data();
         deniedPractitioners.id = doc.id;
         deniedPractitioners.userId = data.userId;
+        deniedPractitioners.userEmail = data.email;
         deniedPractitioners.firstName = data.firstName;
         deniedPractitioners.surName = data.surname;
         deniedPractitioners.hpcsa = data.hpcsa;

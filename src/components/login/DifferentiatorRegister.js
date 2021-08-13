@@ -12,13 +12,13 @@ export default class DifferentiatorRegister extends Component {
 
                     <div className="d-flex justify-content-around my-5">
                         <Link
-                            to="/doctorRegister"
+                            to="/doctor-register"
                             className="btn btn-primary px-5 py-2"
                         >
                             Doctor
                         </Link>
                         <Link
-                            to="/patientRegister"
+                            to="/patient-register"
                             className="btn btn-primary px-5 py-2"
                         >
                             Patient

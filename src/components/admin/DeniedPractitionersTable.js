@@ -8,6 +8,7 @@ export default class DeniedPractitionersTable extends Component {
         super(props);
 
         this.db = firebase.firestore();
+        this.auth = firebase.auth();
         this.state = {
             practitioner: {},
         };
@@ -40,6 +41,7 @@ export default class DeniedPractitionersTable extends Component {
 
     render() {
         const { practitioner } = this.state;
+        // const user = this.auth.currentUser;
         return (
             <div>
                 <div className="p-2 mt-5">
@@ -49,7 +51,7 @@ export default class DeniedPractitionersTable extends Component {
                             <tr>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Practise Number</th>
+                                <th>Email</th>
                                 <th>HPCSA Number</th>
                                 <th>Reason For Deny</th>
                                 <th>Remove</th>
@@ -66,12 +68,10 @@ export default class DeniedPractitionersTable extends Component {
                                             <td>
                                                 {deniedPractitioners.surName}
                                             </td>
-                                            <td>{deniedPractitioners.hpcsa}</td>
                                             <td>
-                                                {
-                                                    deniedPractitioners.practiceNum
-                                                }
+                                                {deniedPractitioners.userEmail}
                                             </td>
+                                            <td>{deniedPractitioners.hpcsa}</td>
                                             <td>
                                                 {
                                                     deniedPractitioners.denyMessage
@@ -122,8 +122,6 @@ export default class DeniedPractitionersTable extends Component {
                                         aria-label="Close"
                                     ></button>
                                 </div>
-
-                                {/* <div className="modal-body container">Test</div> */}
 
                                 <div className="modal-footer">
                                     <button
