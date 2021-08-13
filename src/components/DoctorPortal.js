@@ -2,8 +2,10 @@
 import React, { Component } from "react";
 import firebase from "../firebase/firebase";
 import "firebase/firestore";
-import doctorprofile from "../images/doctorprofile.jpg";
+//import doctorprofile from "../
 import PatientsTable from "./PatientsTable";
+import AddImg from "../components/AddImg";
+import AddPatient from "./AddPatient";
 
 export default class DoctorPortal extends Component {
     constructor(props) {
@@ -21,20 +23,24 @@ export default class DoctorPortal extends Component {
             hpcsa: "",
             status: "",
             patientlist: [],
-            patients: []
+            patients: [],
+            report: "https://firebasestorage.googleapis.com/v0/b/axai-tech.appspot.com/o/reports%2FAxaitech_Med_v2.pdf?alt=media&token=0def6eaa-6a51-49c5-a28b-d3b04e2fd133"
         };
     }
+  
+  componentDidMount() {
+    this.auth.onAuthStateChanged((user) => {
+      this.setState({ user: user });
+      if (user !== null) {
+        this.getRoleStatus(user.uid);
+        this.getUserDetails(user.uid);
+      }
+    });
+  }
 
-    componentDidMount() {
-        this.auth.onAuthStateChanged((user) => {
-            console.log("component did mount")
-            this.setState({ user: user });
-            if (user !== null) {
-                this.getRoleStatus(user.uid);
-                this.getUserDetails(user.uid);
-            }
-        });
-    }
+ 
+
+  
 
     async getRoleStatus(userUid) {
         const snap1 = await this.db
@@ -61,7 +67,8 @@ export default class DoctorPortal extends Component {
                     practiceNum: doc.data().practiceNum,
                     status: doc.data().status,
                     hpcsa: doc.data().hpcsa,
-                    patientlist: doc.data().patientlist
+                    patientlist: doc.data().patientlist,
+                    userId: doc.data().userId
                 });
             });
             this.loopPatients(this.state.patientlist)
@@ -119,27 +126,20 @@ export default class DoctorPortal extends Component {
     }
 
     render() {
-        const imagestyle = {
-            width: "300px",
-            height: "300px",
-        };
+        const {name, surname, status, practiceNum, hpcsa, report} = this.state;
         return (
             <div className="p-5">
                 <h1 className="text-center">DOCTORS PORTAL</h1>
                 <div className="card mb-3">
                     <div className="row g-0">
                         <div className="col-md-4">
-                            <img
-                                style={imagestyle}
-                                className="img-fluid img-thumbnail rounded-circle"
-                                src={doctorprofile}
-                                alt="..."
-                            />
+                            <AddImg />
+
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
                                 <h5 className="card-title">
-                                    {this.state.name} {this.state.surname}{" "}
+                                    {name} {surname}{" "}
                                 </h5>
                                 <p className="card-text text-dark">
                                     Occupation: <em>Oncologist</em>
@@ -147,15 +147,15 @@ export default class DoctorPortal extends Component {
                                 <p className="card-text text-dark">
                                     Status:{" "}
                                     <em style={{ color: "limegreen" }}>
-                                        {this.state.status}
+                                        {status}
                                     </em>
                                 </p>
                                 <p className="card-text text-dark">
                                     Practise Number:{" "}
-                                    <em>{this.state.practiceNum}</em>
+                                    <em>{practiceNum}</em>
                                 </p>
                                 <p className="card-text text-dark">
-                                    HPCSA number: <em> {this.state.hpcsa} </em>
+                                    HPCSA number: <em> {hpcsa} </em>
                                 </p>
                             </div>
                         </div>
@@ -163,6 +163,70 @@ export default class DoctorPortal extends Component {
                 </div>
                 <PatientsTable patients={this.state.patients} doctor={this.state.id}
                 />
+                <table className="table mt-2 bg-light">
+                  <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>Patient name</th>
+                          <th>Date exmained</th>
+                          <th>Test results</th>
+                          <th>                              
+                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              Add Patient
+                            </button>
+
+                            <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div className="modal-dialog">
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">Doctor</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div className="modal-body">
+                                    <AddPatient />
+                                  </div>
+                                  <div className="modal-footer">
+                                    {/* <button type="button" className="btn btn-primary">Send report</button> */}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>1</th>
+                      <td>Beverly Hangman</td>
+                      <td>25/06/2021</td>
+                      <td>Ready</td>
+                      <td className="d-flex justify-content-end">
+                        <a target="_blank" href= { report} rel="noreferrer">
+                          <button type="button" className="btn btn-success m-1">View</button>
+                        </a>
+                        <button type="button" className="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#exampleModal2">Share
+                        </button>
+                        <div className="modal fade" id="exampleModal2" aria-hidden="true">
+                          <div className="modal-dialog">
+                            <div className="modal-content">
+                              <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Doctor</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div className="modal-body">
+                                <AddPatient />
+                                
+                              </div>
+                              <div className="modal-footer">
+                                {/* <button type="button" className="btn btn-primary">Send report</button> */}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
             </div>
         );
     }
