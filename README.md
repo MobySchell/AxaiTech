@@ -1,6 +1,32 @@
-# Getting Started with Create React App
+# AxaiTech #
+<br />
+Dependencies used were:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* nodemailer
+* axios
+* cors
+* firebase
+* bootstrap
+* bootstrap-Icons
+* react-bootstrap
+* react-router-dom
+
+
+
+### To install all of this you need to run this code snippet found below in the vscode terminal after you have created a react-app and put the code from the repository into a file on your machine ###
+
+```npm 
+npm i
+```
+
+<br />
+<br />
+
+
+<details>
+<summary> Getting Started with Create React App </summary>
+
+<p>This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -67,4 +93,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)</p>
+  
+</details>
