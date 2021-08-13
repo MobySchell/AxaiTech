@@ -3,16 +3,17 @@
 Dependencies used were:
 
 * nodemailer
+* axios
+* cors
 * firebase
 * bootstrap
 * bootstrap-Icons
 * react-bootstrap
 * react-router-dom
-* axios
-* cors
 
 
-### To install all of this you need to run this code snippet in the vscode terminal ###
+
+### To install all of this you need to run this code snippet found below in the vscode terminal after you have created a react-app and put the code from the repository into a file on your machine ###
 
 ```npm 
 npm i
