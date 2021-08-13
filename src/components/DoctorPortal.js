@@ -26,6 +26,7 @@ export default class DoctorPortal extends Component {
             patients: [],
         };
     }
+<<<<<<< HEAD
 
     componentDidMount() {
         this.auth.onAuthStateChanged((user) => {
@@ -37,6 +38,18 @@ export default class DoctorPortal extends Component {
         });
     }
 
+=======
+  
+  componentDidMount() {
+    this.auth.onAuthStateChanged((user) => {
+      this.setState({ user: user });
+      if (user !== null) {
+        this.getRoleStatus(user.uid);
+        this.getUserDetails(user.uid);
+      }
+    });
+  }
+>>>>>>> joDev
     async getRoleStatus(userUid) {
         const snap1 = await this.db
             .collection("user-roles")

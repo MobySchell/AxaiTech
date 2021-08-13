@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
-import axios from "axios"
+import axios from "axios";
+import firebase from "../firebase/firebase"
 
 export default class AddPatient extends Component {
   constructor(props){
     super(props);
+    
+    this.auth = firebase.auth();
+    this.db = firebase.firestore();
+
     this.state ={
-      email: {
         recipient: '',
-        sender: 'jo3ydeveloper@outlook.com',
         subject: 'Register link for AxaiTech',
         text: 'random link'      
-      }
     }
-  }
-
-  clicking(){
-    const { email } = this.state;
-    console.log(email.sender)
-    console.log(email.recipient)
   }
 
   handleSubmit(e) {
     e.preventDefault();
-   const { email } = this.state;
+
+   const recipient = this.state.recipient;
+   const subject = this.state.subject;
+   const text = this.state.text;
  
  
  
@@ -30,7 +29,9 @@ export default class AddPatient extends Component {
       method: "POST",
       url: "http://localhost:3000/doctor-portal",
       data: {
-        email: email,
+        recipient: recipient,
+        subject: subject,
+        text: text,
       },
     }).then((response) => {
       if (response.data.msg === "success") {
@@ -40,42 +41,33 @@ export default class AddPatient extends Component {
         alert("Message failed to send.");
       }
     });
+  }  
+  
+  addPatient(){
+    const db = this.state.db
+    //Add a new document with a generated id.
+      db.collection("cities").add({
+        name: "Tokyo",
+        country: "Japan"
+      })
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
   }
 
-  // sendEmail= () => {
-  //   const { email } = this.state;
-  //   // fetch(`http://127.0.0.1:4000/send-email?recipient=${email.recipient}&sender=${email.sender}&topic=${email.subject}&text=${email.text}`)
-  //   // .catch(err => console.log(err))
-
-  //   axios({
-  //     method: "POST",
-  //     url: "http://localhost:3001/doctor-portal",
-  //     data: {
-  //       name : "",
-  //       email: email,
-  //       hpcsa: ""
-  //     },
-  //   }).then((response) => {
-  //     if (response.data.msg === "success") {
-  //       alert("Message Sent.");
-  //       this.resetForm();
-  //     } else if (response.data.msg === "fail") {
-  //       alert("Message failed to send.");
-  //     }
-  //   });
-  // }
-
-    
-
   render() {
-    const { email } = this.state; 
+    
     return (
       <div className="d-flex">
         <label>Patient Email</label>
         <input 
+        value = {this.state.recipient}
           type="text" 
           onChange= {e => {
-            this.setState({ email, recipient: e.target.value})
+            this.setState({ recipient: e.target.value})
           }}
         />
         <br />
@@ -83,7 +75,7 @@ export default class AddPatient extends Component {
         <button 
         type="submit"
         className="btn btn-danger justify-content-end"
-        onClick={(e) => this.clicking(e)}
+        onClick={(e) => this.handleSubmit(e)}
         >
           submit
         </button>
