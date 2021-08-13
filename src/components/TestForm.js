@@ -56,14 +56,28 @@ export default class TestForm extends Component {
       e.preventDefault();
 
       try {
-          // const { email, password } = this.state;
 
           await this.db.collection("tests").doc().set({
               doctorId: this.state.doctorId,
               patientId: this.state.patientId,
               requestDate: new Date(),
-              diagnosis: this.state.diagnosis
+              diagnosis: this.state.diagnosis,
+              status: "In Progress"
           });
+
+          /*
+          console.log(this.state.patientId);
+
+          await this.db.collection("patients").doc(this.state.patientId).update({
+            test: {
+              doctorId: this.state.doctorId,
+              patientId: this.state.patientId,
+              requestDate: new Date(),
+              diagnosis: this.state.diagnosis,
+              status: "In Progress"
+            }
+          })
+          */
 
           this.props.history.push("/doctor-portal");
       } catch (err) {
@@ -88,7 +102,6 @@ export default class TestForm extends Component {
                 type="text" 
                 className="form-control-plaintext"
                 id="formGroupExampleInput"
-                // placeholder= "lol" //
                 placeholder={this.state.name + " " + this.state.surname}
               />
             </div>
@@ -134,7 +147,6 @@ export default class TestForm extends Component {
                 type="text" 
                 className="form-control-plaintext"
                 id="formGroupExampleInput"
-                // placeholder= "lol" //
                 placeholder={this.state.age}
               />
             </div>
@@ -155,8 +167,6 @@ export default class TestForm extends Component {
                 type="text" 
                 className="form-control"
                 id="formGroupExampleInput"
-                // placeholder= "lol" //
-                // placeholder={this.state.age}
               />
             </div>
           </div>

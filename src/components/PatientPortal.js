@@ -4,6 +4,7 @@ import firebase from "../firebase/firebase";
 import "firebase/firestore";
 import doctorprofile from "../images/doctorprofile.jpg";
 import { Table } from "react-bootstrap";
+import PatientTestTable from "./PatientTestTable";
 
 export default class PatientPortal extends Component {
     constructor(props) {
@@ -19,6 +20,7 @@ export default class PatientPortal extends Component {
             age: "",
             gender: "",
             diagnosis: "",
+            tests: ""
         };
     }
 
@@ -83,7 +85,12 @@ export default class PatientPortal extends Component {
             width: "300px",
             height: "300px",
         };
+
+        const isNull = this.state.tests === null;
+        const display = isNull ? "block" : "none";
+
         return (
+
             <div className="p-5">
                 <h1 className="text-center">PATIENT PORTAL</h1>
                 <div className="card mb-3">
@@ -119,30 +126,7 @@ export default class PatientPortal extends Component {
                         </div>
                     </div>
                 </div>
-                <Table>
-                                            <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Test Type</th>
-                                                <th>Date Requested</th>
-                                                <th>Status</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {this.state.tests.map((test, index) => {
-                                                var date = test.requestDate.toDate()
-                                                date = date.toString();
-                                                return (
-                                                    <tr>
-                                                        <th></th>
-                                                        <td>{test.diagnosis}</td>
-                                                        <td>{date}</td>
-                                                        <td>{test.status}</td>
-                                                    </tr>
-                                                );
-                                            })}
-                                            </tbody>
-                                            </Table>
+                <PatientTestTable tests={this.state.tests} />
             </div>
         );
     }

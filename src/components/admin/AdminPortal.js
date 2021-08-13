@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import firebase from "../../firebase/firebase";
 import Practitioners from "./Practitioners";
 import PractitionersTable from "./PractitionersTable";
+import Patients from "./Patients";
+import AllPatientsTable from "./AllPatientsTable";
+
 
 export default class AdminPortal extends Component {
     constructor(props) {
@@ -10,7 +13,10 @@ export default class AdminPortal extends Component {
 
         this.db = firebase.firestore();
 
-        this.state = { practitioners: [] };
+        this.state = { 
+            practitioners: [],
+            patients: []
+        };
     }
 
     componentDidMount() {
@@ -29,6 +35,15 @@ export default class AdminPortal extends Component {
                     });
                     this.setState({ practitioners: practitioners });
                 });
+            await this.db
+                .collection("patients")
+                .onSnapshot((querySnapshot) => {
+                    var patients = [];
+                    querySnapshot.forEach((doc) => {
+                        patients.push(Patients.fromFB(doc));
+                    });
+                    this.setState({ patients: patients });
+                });
         } catch (err) {
             console.log(err);
         }
@@ -40,6 +55,7 @@ export default class AdminPortal extends Component {
                 <div className="p-5"></div>
 
                 <PractitionersTable practitioners={this.state.practitioners} />
+                {/* <AllPatientsTable patients={this.state.patients} /> */}
 
                 <div className="p-5"></div>
             </div>

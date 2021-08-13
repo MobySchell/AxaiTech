@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-import firebase from "../firebase/firebase";
+import firebase from "../../firebase/firebase";
 import { Link } from "react-router-dom";
 
-export default class PatientsTable extends Component {
+export default class AllPatientsTable extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
