@@ -107,9 +107,6 @@ export default class DoctorPortal extends Component {
                             Go to Home
                         </Button>
                     </Card.Body>
-                    {/* <Card.Footer className="text-muted">
-                        Last Updated: 2 days ago
-                    </Card.Footer> */}
                 </Card>
             </div>
         );
