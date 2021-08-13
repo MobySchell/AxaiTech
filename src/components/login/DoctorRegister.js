@@ -35,13 +35,13 @@ export default class DoctorRegister extends Component {
                 userId: this.auth.currentUser.uid,
                 role: this.state.role,
             });
-
+            this.setState({ email: email });
             console.log(e);
 
             if (this.state.role === "doctor") {
                 await this.db.collection("doctors").doc().set({
                     userId: this.auth.currentUser.uid,
-                    email: this.state.email,
+                    email: email,
                     firstName: this.state.firstName,
                     surname: this.state.surname,
                     hpcsa: this.state.hpcsa,
@@ -54,6 +54,7 @@ export default class DoctorRegister extends Component {
         } catch (err) {
             this.setState({ error: err.message });
         }
+        this.setState({ email: "" });
     }
 
     handleSubmit(e) {
