@@ -12,13 +12,13 @@ app.listen(3000, () => console.log("Server Running"));
 
 
 const transport = nodemailer.createTransport({
-  host: "darkstorm.aserv.co.za",
+  host: "",
 
   port: 465,
   auth: {
-      user: "noreply@copp.co.za",
+      user: "",
       
-      pass: "Mn(1aJ*HHB{3",
+      pass: "",
   },
   secure:true
 });
@@ -32,7 +32,7 @@ router.post("/doctor-portal", (req, res) => {
   const text = req.body.text;
 
   const mail = {
-    from: "noreply@copp.co.za",
+    from: "",
     to: `${recipient}`, 
     subject: `${subject}`,
     html: `<p>Welcome to the AxaiTech platform you are one step closer to joining the team.</p>
