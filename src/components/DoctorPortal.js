@@ -161,30 +161,8 @@ export default class DoctorPortal extends Component {
                         </div>
                     </div>
                 </div>
-
-                {/*
-                <table className="table mt-2 bg-light">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Patient name</th>
-                            <th>Date exmained</th>
-                            <th>Test results</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Mark Shoeman</td>
-                            <td>25/06/2021</td>
-                            <td>Ready</td>
-                            <td>Download</td>
-                        </tr>
-                    </tbody>
-                </table>
-                */}
-                <PatientsTable patients={this.state.patients} doctor={this.state.id}/>
+                <PatientsTable patients={this.state.patients} doctor={this.state.id}
+                />
             </div>
         );
     }
