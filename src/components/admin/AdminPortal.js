@@ -2,10 +2,9 @@ import React, { Component } from "react";
 
 import firebase from "../../firebase/firebase";
 import Practitioners from "./Practitioners";
+import DeniedPractitioners from "./DeniedPractitioners";
 import PractitionersTable from "./PractitionersTable";
-import Patients from "./Patients";
-import AllPatientsTable from "./AllPatientsTable";
-
+import DeniedPractitionersTable from "./DeniedPractitionersTable";
 
 export default class AdminPortal extends Component {
     constructor(props) {
@@ -13,14 +12,12 @@ export default class AdminPortal extends Component {
 
         this.db = firebase.firestore();
 
-        this.state = { 
-            practitioners: [],
-            patients: []
-        };
+        this.state = { practitioners: [], deniedPractitioners: [] };
     }
 
     componentDidMount() {
         this.fetchData();
+        this.denyData();
     }
 
     async fetchData() {
@@ -49,13 +46,34 @@ export default class AdminPortal extends Component {
         }
     }
 
+    async denyData() {
+        try {
+            await this.db
+                .collection("doctors")
+                .where("status", "==", "denied")
+                .onSnapshot((querySnapshot) => {
+                    var deniedPractitioners = [];
+                    querySnapshot.forEach((doc) => {
+                        deniedPractitioners.push(
+                            DeniedPractitioners.fromFB(doc)
+                        );
+                    });
+                    this.setState({ deniedPractitioners: deniedPractitioners });
+                });
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     render() {
         return (
             <div className="container">
                 <div className="p-5"></div>
 
                 <PractitionersTable practitioners={this.state.practitioners} />
-                {/* <AllPatientsTable patients={this.state.patients} /> */}
+                <DeniedPractitionersTable
+                    deniedPractitioners={this.state.deniedPractitioners}
+                />
 
                 <div className="p-5"></div>
             </div>

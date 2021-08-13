@@ -122,7 +122,8 @@ export default class PractitionersTable extends Component {
                                     className="modal-title"
                                     id="exampleModalLabel"
                                 >
-                                    {practitioner.firstName}
+                                    {practitioner.firstName}{" "}
+                                    {practitioner.surName}
                                 </h5>
                                 <button
                                     type="button"
@@ -132,8 +133,9 @@ export default class PractitionersTable extends Component {
                                 ></button>
                             </div>
 
-                            <div className="modal-body">
+                            <div className="modal-body container">
                                 <textarea
+                                    className="w-100"
                                     value={denyMessage}
                                     onChange={(e) =>
                                         this.setState({
@@ -177,7 +179,8 @@ export default class PractitionersTable extends Component {
                                     className="modal-title"
                                     id="exampleModalLabel"
                                 >
-                                    {practitioner.firstName}
+                                    {practitioner.firstName}{" "}
+                                    {practitioner.surName}
                                 </h5>
                                 <button
                                     type="button"
@@ -186,8 +189,6 @@ export default class PractitionersTable extends Component {
                                     aria-label="Close"
                                 ></button>
                             </div>
-
-                            <div className="modal-body"></div>
 
                             <div className="modal-footer">
                                 <button

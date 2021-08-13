@@ -20,6 +20,7 @@ export default class DoctorRegister extends Component {
             hpcsa: "",
             practiceNum: "",
             role: "doctor",
+            error: "",
         };
     }
 
@@ -34,13 +35,13 @@ export default class DoctorRegister extends Component {
                 userId: this.auth.currentUser.uid,
                 role: this.state.role,
             });
-
+            this.setState({ email: email });
             console.log(e);
 
             if (this.state.role === "doctor") {
                 await this.db.collection("doctors").doc().set({
                     userId: this.auth.currentUser.uid,
-                    email: this.state.email,
+                    email: email,
                     firstName: this.state.firstName,
                     surname: this.state.surname,
                     hpcsa: this.state.hpcsa,
@@ -53,6 +54,7 @@ export default class DoctorRegister extends Component {
         } catch (err) {
             this.setState({ error: err.message });
         }
+        this.setState({ email: "" });
     }
 
     handleSubmit(e) {
@@ -86,6 +88,7 @@ export default class DoctorRegister extends Component {
     }
 
     render() {
+        const { error } = this.state;
         return (
             <div className="container col-7 mt-2">
                 <div className="p-5"></div>
@@ -182,6 +185,14 @@ export default class DoctorRegister extends Component {
                                 Register
                             </button>
                         </div>
+
+                        {error ? (
+                            <div class="alert alert-danger mt-5" role="alert">
+                                {error}
+                            </div>
+                        ) : (
+                            <div></div>
+                        )}
                     </form>
                 </div>
                 <div className="p-5"></div>

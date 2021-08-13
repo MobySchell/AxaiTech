@@ -1,4 +1,3 @@
-// import pic from '../images/BelindaDoc.jpg';
 import React, { Component } from "react";
 import firebase from "../firebase/firebase";
 import "firebase/firestore";
@@ -27,20 +26,16 @@ export default class DoctorPortal extends Component {
             report: "https://firebasestorage.googleapis.com/v0/b/axai-tech.appspot.com/o/reports%2FAxaitech_Med_v2.pdf?alt=media&token=0def6eaa-6a51-49c5-a28b-d3b04e2fd133"
         };
     }
-  
-  componentDidMount() {
-    this.auth.onAuthStateChanged((user) => {
-      this.setState({ user: user });
-      if (user !== null) {
-        this.getRoleStatus(user.uid);
-        this.getUserDetails(user.uid);
-      }
-    });
-  }
 
- 
-
-  
+    componentDidMount() {
+        this.auth.onAuthStateChanged((user) => {
+            this.setState({ user: user });
+            if (user !== null) {
+                this.getRoleStatus(user.uid);
+                this.getUserDetails(user.uid);
+            }
+        });
+    }
 
     async getRoleStatus(userUid) {
         const snap1 = await this.db
@@ -71,7 +66,7 @@ export default class DoctorPortal extends Component {
                     userId: doc.data().userId
                 });
             });
-            this.loopPatients(this.state.patientlist)
+            this.loopPatients(this.state.patientlist);
         } catch (err) {
             console.log(err);
         }
@@ -126,37 +121,39 @@ export default class DoctorPortal extends Component {
     }
 
     render() {
-        const {name, surname, status, practiceNum, hpcsa, report} = this.state;
+        // ,
+        const { report, name, surname, status, practiceNum, hpcsa } =
+            this.state;
         return (
-            <div className="p-5">
-                <h1 className="text-center">DOCTORS PORTAL</h1>
-                <div className="card mb-3">
-                    <div className="row g-0">
-                        <div className="col-md-4">
-                            <AddImg />
-
-                        </div>
-                        <div className="col-md-8">
-                            <div className="card-body">
-                                <h5 className="card-title">
-                                    {name} {surname}{" "}
-                                </h5>
-                                <p className="card-text text-dark">
-                                    Occupation: <em>Oncologist</em>
-                                </p>
-                                <p className="card-text text-dark">
-                                    Status:{" "}
-                                    <em style={{ color: "limegreen" }}>
-                                        {status}
-                                    </em>
-                                </p>
-                                <p className="card-text text-dark">
-                                    Practise Number:{" "}
-                                    <em>{practiceNum}</em>
-                                </p>
-                                <p className="card-text text-dark">
-                                    HPCSA number: <em> {hpcsa} </em>
-                                </p>
+            <div className="container">
+                <div className="p-5">
+                    <h1 className="text-center">DOCTORS PORTAL</h1>
+                    <div className="card mb-3">
+                        <div className="row g-0">
+                            <div className="col-md-4">
+                                <AddImg />
+                            </div>
+                            <div className="col-md-8">
+                                <div className="card-body">
+                                    <h5 className="card-title">
+                                        {name} {surname}{" "}
+                                    </h5>
+                                    <p className="card-text text-dark">
+                                        Occupation: <em>Oncologist</em>
+                                    </p>
+                                    <p className="card-text text-dark">
+                                        Status:{" "}
+                                        <em style={{ color: "limegreen" }}>
+                                            {status}
+                                        </em>
+                                    </p>
+                                    <p className="card-text text-dark">
+                                        Practise Number: <em>{practiceNum}</em>
+                                    </p>
+                                    <p className="card-text text-dark">
+                                        HPCSA number: <em> {hpcsa} </em>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
