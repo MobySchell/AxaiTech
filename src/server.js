@@ -12,13 +12,13 @@ app.listen(3000, () => console.log("Server Running"));
 
 
 const transport = nodemailer.createTransport({
-  host: "darkstorm.aserv.co.za",
+  host: "",
 
   port: 465,
   auth: {
-      user: "noreply@copp.co.za",
+      user: "",
       
-      pass: "Mn(1aJ*HHB{3",
+      pass: "",
   },
   secure:true
 });
@@ -32,8 +32,8 @@ router.post("/doctorregister", (req, res) => {
   const hpcsa = req.body.hpcsa;
 
   const mail = {
-    from: "noreply@copp.co.za",
-    to: "nzayamuia02@gmail.com ", 
+    from: "",
+    to: "", 
     subject: "register Form Submission",
     html: `<p>Name: ${name}</p>
              <p>Email: ${email}</p>
