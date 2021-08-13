@@ -34,11 +34,6 @@ export default class DoctorPortal extends Component {
       }
     });
   }
-
- 
-
-  
-
     async getRoleStatus(userUid) {
         const snap1 = await this.db
             .collection("user-roles")
