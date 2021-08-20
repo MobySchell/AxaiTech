@@ -135,6 +135,7 @@ export default class PatientPortal extends Component {
                         </tr>
                     </thead>
                     <tbody>
+                        {/*
                         {this.state.tests.map((test, index) => {
                             var date = test.requestDate.toDate();
                             date = date.toString();
@@ -147,6 +148,7 @@ export default class PatientPortal extends Component {
                                 </tr>
                             );
                         })}
+                        */}
                     </tbody>
                 </Table>
             </div>

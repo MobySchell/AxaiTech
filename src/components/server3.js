@@ -27,15 +27,16 @@ const transport = nodemailer.createTransport({
 
 router.post("/doctor-portal", (req, res) => {
   console.log("register was here")
-  const email = req.body.email;
-  const link = req.body.email;
-
+  const recipient = req.body.recipient;
+  const subject = req.body.subject;
+  const text = req.body.text;
 
   const mail = {
     from: "noreply@copp.co.za",
-    to: email, 
-    subject: "register Form Submission",
-    html: `<p>Please click on link: ${link}</p>`,
+    to: `${recipient}`, 
+    subject: `${subject}`,
+    html: `<p>Welcome to the AxaiTech platform you are one step closer to joining the team.</p>
+            <p>Please click on this link to complete your profile ${text}</p>`,
   };
 
   transport.sendMail(mail, (error) => {

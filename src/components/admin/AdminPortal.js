@@ -32,15 +32,6 @@ export default class AdminPortal extends Component {
                     });
                     this.setState({ practitioners: practitioners });
                 });
-            await this.db
-                .collection("patients")
-                .onSnapshot((querySnapshot) => {
-                    var patients = [];
-                    querySnapshot.forEach((doc) => {
-                        patients.push(Patients.fromFB(doc));
-                    });
-                    this.setState({ patients: patients });
-                });
         } catch (err) {
             console.log(err);
         }
